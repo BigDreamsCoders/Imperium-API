@@ -3,7 +3,7 @@ CREATE TABLE "rolePrivilege"
     "role_id"    INTEGER                 NOT NULL,
     privilege_id INTEGER                 NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt"  TIMESTAMP DEFAULT now() NOT NULL,
+    "updated_at"  TIMESTAMP DEFAULT now() NOT NULL,
     PRIMARY KEY ("role_id", privilege_id)
 );
 
@@ -15,7 +15,7 @@ CREATE TABLE "workstation"
     "workstation_state_id" INTEGER                 NOT NULL,
     "workstation_type_id"  INTEGER                 NOT NULL,
     "created_at"           TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt"            TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at"            TIMESTAMP DEFAULT now() NOT NULL
 );
 
 CREATE TABLE "gender"
@@ -23,7 +23,7 @@ CREATE TABLE "gender"
     "id"         SERIAL PRIMARY KEY      NOT NULL,
     "name"       VARCHAR                 NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt"  TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at"  TIMESTAMP DEFAULT now() NOT NULL
 );
 
 CREATE TABLE "routine_type"
@@ -31,7 +31,7 @@ CREATE TABLE "routine_type"
     "id"         SERIAL PRIMARY KEY      NOT NULL,
     "name"       VARCHAR                 NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt"  TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at"  TIMESTAMP DEFAULT now() NOT NULL
 );
 
 CREATE TABLE "membership_type"
@@ -40,7 +40,7 @@ CREATE TABLE "membership_type"
     "name"  VARCHAR            NOT NULL,
     "price" DECIMAL            NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 
 );
 
@@ -49,7 +49,7 @@ CREATE TABLE "membership_state"
     "id"   SERIAL PRIMARY KEY NOT NULL,
     "name" VARCHAR            NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 
 );
 
@@ -58,7 +58,7 @@ CREATE TABLE "role"
     "id"   SERIAL PRIMARY KEY NOT NULL,
     "name" VARCHAR            NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 
 );
 
@@ -67,7 +67,7 @@ CREATE TABLE "privilege"
     "id"   SERIAL PRIMARY KEY NOT NULL,
     "name" VARCHAR            NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 
 );
 
@@ -76,7 +76,7 @@ CREATE TABLE "workstation_state"
     "id"   SERIAL PRIMARY KEY NOT NULL,
     "name" VARCHAR            NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 
 );
 
@@ -93,7 +93,7 @@ CREATE TABLE "user"
     "role_id"       INTEGER            NOT NULL,
     "file_id"       INTEGER            NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 
 );
 
@@ -103,7 +103,7 @@ CREATE TABLE "file"
     "weight" DECIMAL            NOT NULL,
     "height" DECIMAL            NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 
 );
 
@@ -113,7 +113,7 @@ CREATE TABLE "membership"
     "membership_type"  INTEGER            NOT NULL,
     "membership_state" INTEGER            NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 
 );
 
@@ -125,7 +125,7 @@ CREATE TABLE "routine"
     "creator_id"      INTEGER            NOT NULL,
     "routine_type_id" INTEGER            NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 
 );
 
@@ -134,7 +134,7 @@ create table workstation_type
     "id"   SERIAL primary key NOT NULL,
     "name" VARCHAR            NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+    "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 
 );
 
