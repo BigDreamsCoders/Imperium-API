@@ -1,101 +1,175 @@
-CREATE TABLE "gender" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar
+CREATE TABLE "rolePrivilege"
+(
+    "role_id"    INTEGER                 NOT NULL,
+    privilege_id INTEGER                 NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt"  TIMESTAMP DEFAULT now() NOT NULL,
+    PRIMARY KEY ("role_id", privilege_id)
 );
 
-CREATE TABLE "routine_type" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar
+CREATE TABLE "workstation"
+(
+    "id"                   SERIAL PRIMARY KEY      NOT NULL,
+    "name"                 VARCHAR                 NOT NULL,
+    "img"                  VARCHAR                 NOT NULL,
+    "workstation_state_id" INTEGER                 NOT NULL,
+    "workstation_type_id"  INTEGER                 NOT NULL,
+    "created_at"           TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt"            TIMESTAMP DEFAULT now() NOT NULL
 );
 
-CREATE TABLE "membership_type" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar
+CREATE TABLE "gender"
+(
+    "id"         SERIAL PRIMARY KEY      NOT NULL,
+    "name"       VARCHAR                 NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt"  TIMESTAMP DEFAULT now() NOT NULL
 );
 
-CREATE TABLE "membership_state" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar
+CREATE TABLE "routine_type"
+(
+    "id"         SERIAL PRIMARY KEY      NOT NULL,
+    "name"       VARCHAR                 NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt"  TIMESTAMP DEFAULT now() NOT NULL
 );
 
-CREATE TABLE "role" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar
+CREATE TABLE "membership_type"
+(
+    "id"    SERIAL PRIMARY KEY NOT NULL,
+    "name"  VARCHAR            NOT NULL,
+    "price" DECIMAL            NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+
 );
 
-CREATE TABLE "privilage" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar
+CREATE TABLE "membership_state"
+(
+    "id"   SERIAL PRIMARY KEY NOT NULL,
+    "name" VARCHAR            NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+
 );
 
-CREATE TABLE "roleXprivilage" (
-  "role_id" int,
-  "privilage_id" int,
-  PRIMARY KEY ("role_id", "privilage_id")
+CREATE TABLE "role"
+(
+    "id"   SERIAL PRIMARY KEY NOT NULL,
+    "name" VARCHAR            NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+
 );
 
-CREATE TABLE "workstation" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar,
-  "img" varchar,
-  "workstation_state_id" int
+CREATE TABLE "privilege"
+(
+    "id"   SERIAL PRIMARY KEY NOT NULL,
+    "name" VARCHAR            NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+
 );
 
-CREATE TABLE "workstation_state" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar
+CREATE TABLE "workstation_state"
+(
+    "id"   SERIAL PRIMARY KEY NOT NULL,
+    "name" VARCHAR            NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+
 );
 
-CREATE TABLE "user" (
-  "id" SERIAL PRIMARY KEY,
-  "first_name" varchar,
-  "last_name" varchar,
-  "birthday" timestamp,
-  "gender_id" int,
-  "membership_id" int,
-  "role_id" int,
-  "file_id" int
+CREATE TABLE "user"
+(
+    "id"            SERIAL PRIMARY KEY NOT NULL,
+    "email"         VARCHAR            NOT NULL,
+    "password"      VARCHAR            NOT NULL,
+    "first_name"    VARCHAR            NOT NULL,
+    "last_name"     VARCHAR            NOT NULL,
+    "birthday"      TIMESTAMP          NOT NULL,
+    "gender_id"     INTEGER            NOT NULL,
+    "membership_id" INTEGER            NOT NULL,
+    "role_id"       INTEGER            NOT NULL,
+    "file_id"       INTEGER            NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+
 );
 
-CREATE TABLE "file" (
-  "id" SERIAL PRIMARY KEY,
-  "weight" decimal,
-  "height" decimal
+CREATE TABLE "file"
+(
+    "id"     SERIAL PRIMARY KEY NOT NULL,
+    "weight" DECIMAL            NOT NULL,
+    "height" DECIMAL            NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+
 );
 
-CREATE TABLE "membership" (
-  "id" SERIAL PRIMARY KEY,
-  "membership_type" int,
-  "membership_state" int
+CREATE TABLE "membership"
+(
+    "id"               SERIAL PRIMARY KEY NOT NULL,
+    "membership_type"  INTEGER            NOT NULL,
+    "membership_state" INTEGER            NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+
 );
 
-CREATE TABLE "routine" (
-  "id" SERIAL PRIMARY KEY,
-  "name" varchar,
-  "suggested_time" double,
-  "creator_id" int,
-  "routine_type_id" int
+CREATE TABLE "routine"
+(
+    "id"              SERIAL PRIMARY KEY NOT NULL,
+    "name"            VARCHAR            NOT NULL,
+    "suggested_time"  DECIMAL            NOT NULL,
+    "creator_id"      INTEGER            NOT NULL,
+    "routine_type_id" INTEGER            NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
+
 );
 
-ALTER TABLE "roleXprivilage" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
+create table workstation_type
+(
+    "id"   SERIAL primary key NOT NULL,
+    "name" VARCHAR            NOT NULL,
+    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
+    "updatedAt" TIMESTAMP DEFAULT now() NOT NULL
 
-ALTER TABLE "roleXprivilage" ADD FOREIGN KEY ("privilage_id") REFERENCES "privilage" ("id");
+);
 
-ALTER TABLE "workstation" ADD FOREIGN KEY ("workstation_state_id") REFERENCES "workstation_state" ("id");
+ALTER TABLE "rolePrivilege"
+    ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
 
-ALTER TABLE "file" ADD FOREIGN KEY ("id") REFERENCES "user" ("file_id");
+ALTER TABLE "rolePrivilege"
+    ADD FOREIGN KEY (privilege_id) REFERENCES "privilege" ("id");
 
-ALTER TABLE "user" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
+ALTER TABLE "workstation"
+    ADD FOREIGN KEY ("workstation_state_id") REFERENCES "workstation_state" ("id");
 
-ALTER TABLE "gender" ADD FOREIGN KEY ("id") REFERENCES "user" ("gender_id");
+ALTER TABLE "user"
+    ADD FOREIGN KEY ("file_id") REFERENCES "file" ("id");
 
-ALTER TABLE "membership" ADD FOREIGN KEY ("membership_state") REFERENCES "membership_state" ("id");
+ALTER TABLE "user"
+    ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
 
-ALTER TABLE "membership" ADD FOREIGN KEY ("membership_type") REFERENCES "membership_type" ("id");
+ALTER TABLE "user"
+    ADD FOREIGN KEY ("gender_id") REFERENCES "gender" ("id");
 
-ALTER TABLE "membership" ADD FOREIGN KEY ("id") REFERENCES "user" ("membership_id");
+ALTER TABLE "membership"
+    ADD FOREIGN KEY ("membership_state") REFERENCES "membership_state" ("id");
 
-ALTER TABLE "user" ADD FOREIGN KEY ("id") REFERENCES "routine" ("creator_id");
+ALTER TABLE "membership"
+    ADD FOREIGN KEY ("membership_type") REFERENCES "membership_type" ("id");
 
-ALTER TABLE "routine_type" ADD FOREIGN KEY ("id") REFERENCES "routine" ("routine_type_id");
+ALTER TABLE "user"
+    ADD FOREIGN KEY ("membership_id") REFERENCES "membership" ("id");
 
+ALTER TABLE "routine"
+    ADD FOREIGN KEY ("creator_id") REFERENCES "user" ("id");
+
+ALTER TABLE "routine"
+    ADD FOREIGN KEY ("routine_type_id") REFERENCES "routine_type" ("id");
+
+ALTER TABLE "workstation"
+    ADD FOREIGN KEY ("workstation_type_id") REFERENCES "workstation_type" ("id");
