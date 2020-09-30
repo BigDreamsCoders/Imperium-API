@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Connection } from 'typeorm';
-import { User } from '../user/user.entity';
+import { User } from '../entities/user.entity';
 import { UserService } from '../user/user.service';
 import { TokenDTO } from './auth.dto';
 
