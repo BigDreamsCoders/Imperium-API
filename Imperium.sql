@@ -1,4 +1,4 @@
-CREATE TABLE "rolePrivilege"
+CREATE TABLE "role_privilege"
 (
     "role_id"    INTEGER                 NOT NULL,
     privilege_id INTEGER                 NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE "routine"
 
 );
 
-create table workstation_type
+CREATE TABLE "workstation_type"
 (
     "id"   SERIAL primary key NOT NULL,
     "name" VARCHAR            NOT NULL,
