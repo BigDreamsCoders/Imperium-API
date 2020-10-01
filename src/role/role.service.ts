@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Role } from '../entities/role.entity';
-import { Response } from './interfaces/response.interface';
+import { RoleResponse } from './interfaces/response.interface';
 import { RoleDeleteDTO, RoleDTO, RoleUpdateDTO } from './role.dto';
 
 @Injectable()
@@ -16,8 +16,8 @@ export class RoleService {
     return await this.roleRepository.find();
   }
 
-  async findByID(id: string): Promise<Response> {
-    const response: Response = {
+  async findByID(id: string): Promise<RoleResponse> {
+    const response: RoleResponse = {
       message: 'Role not found',
       success: false,
       role: undefined,
@@ -36,8 +36,8 @@ export class RoleService {
     return response;
   }
 
-  async findByName(name: string): Promise<Response> {
-    const response: Response = {
+  async findByName(name: string): Promise<RoleResponse> {
+    const response: RoleResponse = {
       message: 'Role not found',
       success: false,
       role: undefined,
@@ -55,8 +55,8 @@ export class RoleService {
     return response;
   }
 
-  async create(roleDTO: RoleDTO): Promise<Response> {
-    const response: Response = {
+  async create(roleDTO: RoleDTO): Promise<RoleResponse> {
+    const response: RoleResponse = {
       message: 'Role could not be saved',
       success: false,
       role: undefined,
@@ -76,7 +76,7 @@ export class RoleService {
   }
 
   async update(role: Role, roleDTO: RoleUpdateDTO) {
-    const response: Response = {
+    const response: RoleResponse = {
       message: 'Role could not be saved',
       success: false,
       role: undefined,
@@ -97,8 +97,8 @@ export class RoleService {
     }
   }
 
-  async remove(role: Role): Promise<Response> {
-    const response: Response = {
+  async remove(role: Role): Promise<RoleResponse> {
+    const response: RoleResponse = {
       message: 'Role could not be deleted',
       success: false,
       role: undefined,
