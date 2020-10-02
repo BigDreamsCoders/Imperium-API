@@ -67,6 +67,7 @@ CREATE TABLE "privilege"
     "id"         SERIAL PRIMARY KEY      NOT NULL,
     "resource"   VARCHAR                 NOT NULL,
     "action"     VARCHAR                 NOT NULL,
+    "possession" VARCHAR                 NOT NULL,
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
     "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 
@@ -148,6 +149,9 @@ ALTER TABLE role_privilege
 ALTER TABLE "workstation"
     ADD FOREIGN KEY ("workstation_state_id") REFERENCES "workstation_state" ("id");
 
+ALTER TABLE "workstation"
+    ADD FOREIGN KEY ("workstation_type_id") REFERENCES "workstation_type" ("id");
+
 ALTER TABLE "user"
     ADD FOREIGN KEY ("file_id") REFERENCES "file" ("id");
 
@@ -157,14 +161,14 @@ ALTER TABLE "user"
 ALTER TABLE "user"
     ADD FOREIGN KEY ("gender_id") REFERENCES "gender" ("id");
 
+ALTER TABLE "user"
+    ADD FOREIGN KEY ("membership_id") REFERENCES "membership" ("id");
+
 ALTER TABLE "membership"
     ADD FOREIGN KEY ("membership_state") REFERENCES "membership_state" ("id");
 
 ALTER TABLE "membership"
     ADD FOREIGN KEY ("membership_type") REFERENCES "membership_type" ("id");
-
-ALTER TABLE "user"
-    ADD FOREIGN KEY ("membership_id") REFERENCES "membership" ("id");
 
 ALTER TABLE "routine"
     ADD FOREIGN KEY ("creator_id") REFERENCES "user" ("id");
@@ -172,5 +176,3 @@ ALTER TABLE "routine"
 ALTER TABLE "routine"
     ADD FOREIGN KEY ("routine_type_id") REFERENCES "routine_type" ("id");
 
-ALTER TABLE "workstation"
-    ADD FOREIGN KEY ("workstation_type_id") REFERENCES "workstation_type" ("id");
