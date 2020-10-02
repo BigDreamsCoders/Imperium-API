@@ -1,29 +1,29 @@
+import { MembershipModule } from './../membership/membership.module';
+import { GenderModule } from './../gender/gender.module';
+import { RolePrivilegeModule } from './../rolePrivilege/role-privilege.module';
+import { PrivilegeModule } from './../privilege/privilege.module';
+import { RoleModule } from './../role/role.module';
 import { AuthModule } from './../auth/auth.module';
 import { UserModule } from './../user/user.module';
 import { DatabaseModule } from '../database.module';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import * as Joi from '@hapi/joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AccControlModule } from '../access-control.module';
+import { ConfModule } from '../config.module';
 
 @Module({
   imports: [
+    MembershipModule,
+    GenderModule,
+    RolePrivilegeModule,
+    PrivilegeModule,
+    RoleModule,
     AuthModule,
     UserModule,
-    ConfigModule.forRoot({
-      isGlobal: true,
-      validationSchema: Joi.object({
-        DB_HOST: Joi.string().required(),
-        DB_PORT: Joi.number().required(),
-        DB_USERNAME: Joi.string().required(),
-        DB_PASSWORD: Joi.string().required(),
-        DB_DATABASE: Joi.string().required(),
-        JWT_SECRET: Joi.string().required(),
-        JWT_EXPIRE: Joi.string().required(),
-      }),
-    }),
+    ConfModule,
     DatabaseModule,
+    AccControlModule,
   ],
   controllers: [AppController],
   providers: [AppService],

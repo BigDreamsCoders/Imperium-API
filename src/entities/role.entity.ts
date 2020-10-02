@@ -37,7 +37,10 @@ export class Privilege {
   id: string;
 
   @Column()
-  name: string;
+  resource: string;
+
+  @Column()
+  action: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
@@ -60,7 +63,7 @@ export class RolePrivilege {
   @ManyToOne(
     type => Role,
     role => role.id,
-    { primary: true },
+    { primary: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'role_id' })
   role: Role;
@@ -68,7 +71,7 @@ export class RolePrivilege {
   @ManyToOne(
     type => Privilege,
     privilege => privilege.id,
-    { primary: true },
+    { primary: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'privilege_id' })
   privilege: Privilege;
