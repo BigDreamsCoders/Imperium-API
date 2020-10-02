@@ -2,11 +2,11 @@ import { MembershipController } from './membership.controller';
 import { MembershipService } from './membership.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Membership } from '../entities/membership.entity';
 import {
-  Membership,
   MembershipState,
   MembershipType,
-} from '../entities/membership.entity';
+} from '../entities/membership.catalog.entity';
 
 @Module({
   imports: [

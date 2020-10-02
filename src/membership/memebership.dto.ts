@@ -12,16 +12,10 @@ export class MembershipDTO {
 export class UpdateStateDTO {
   @IsString()
   @IsNotEmpty()
-  id: string;
-  @IsString()
-  @IsNotEmpty()
   state: string;
 }
 
 export class UpdateTypeDTO {
-  @IsString()
-  @IsNotEmpty()
-  id: string;
   @IsString()
   @IsNotEmpty()
   type: string;

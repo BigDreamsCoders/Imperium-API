@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
-  Membership,
   MembershipState,
   MembershipType,
-} from '../entities/membership.entity';
+} from '../entities/membership.catalog.entity';
+import { Membership } from '../entities/membership.entity';
 import {
   MembershipResponse,
   MembershipTypeResponse,
@@ -39,7 +39,7 @@ export class MembershipService {
     };
     const membership = await this.membershipRepository.findOne({
       where: { id },
-      relations: ['membership_state', 'membership_type'],
+      relations: ['membershipState', 'membershipType'],
     });
     if (!membership) return response;
 
@@ -126,9 +126,7 @@ export class MembershipService {
     };
 
     membership.membershipType = memberType;
-
     const membershipSaved = await this.membershipRepository.save(membership);
-
     if (!membershipSaved) return response;
 
     response.membership = membershipSaved;

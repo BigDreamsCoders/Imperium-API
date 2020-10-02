@@ -1,8 +1,8 @@
 import {
-  Membership,
   MembershipState,
   MembershipType,
-} from '../../entities/membership.entity';
+} from '../../entities/membership.catalog.entity';
+import { Membership } from '../../entities/membership.entity';
 
 export interface MembershipResponse extends BasicResponse {
   membership: Membership;
