@@ -12,7 +12,10 @@ export class RoleService {
     private readonly roleRepository: Repository<Role>,
   ) {}
 
-  async findAll(): Promise<Role[]> {
+  async find(id: string): Promise<RoleResponse | Role[]> {
+    if (id) {
+      return await this.findByID(id);
+    }
     return await this.roleRepository.find();
   }
 

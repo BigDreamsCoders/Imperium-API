@@ -14,3 +14,12 @@ export const Privileges = {
     OWN: 'own',
   },
 };
+
+export const DocumentationString = {
+  TYPE: {
+    ID: (entity: string) =>
+      `${entity.charAt(0).toUpperCase()}${entity
+        .slice(1)
+        .toLowerCase()} id in string format`,
+  },
+};

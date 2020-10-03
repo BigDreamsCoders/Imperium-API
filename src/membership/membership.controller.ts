@@ -18,7 +18,9 @@ import {
 } from './memebership.dto';
 import { MembershipResponse } from './interface/memebership.interface';
 import { Membership } from '../entities/membership.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Membership')
 @Controller('membership')
 export class MembershipController {
   constructor(private readonly membershipService: MembershipService) {}

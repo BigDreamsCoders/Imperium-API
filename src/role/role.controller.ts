@@ -6,15 +6,18 @@ import {
   Get,
   HttpCode,
   InternalServerErrorException,
+  Param,
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Role } from '../entities/role.entity';
 import { PrivilegeService } from '../privilege/privilege.service';
 import { RoleResponse } from './interfaces/response.interface';
 import { RoleDeleteDTO, RoleDTO, RoleUpdateDTO } from './role.dto';
 import { RoleService } from './role.service';
 
+@ApiTags('Role')
 @Controller('role')
 export class RoleController {
   constructor(
@@ -23,9 +26,16 @@ export class RoleController {
   ) {}
 
   @HttpCode(200)
-  @Get('')
-  async findAll(): Promise<Role[]> {
-    return this.roleService.findAll();
+  @Get('/:id*?')
+  async findAll(@Param('id') id: string): Promise<Role[] | Role> {
+    const response = await this.roleService.find(id);
+    if ('success' in response) {
+      if (!response.success) {
+        throw new BadRequestException('Role not found');
+      }
+      return response.role;
+    }
+    return response;
   }
 
   @HttpCode(201)
