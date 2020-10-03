@@ -1,0 +1,35 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { File } from '../entities/file.entity';
+import { FileDTO } from './file.dto';
+import { FileResponse } from './interface/response.interface';
+
+@Injectable()
+export class FileService {
+  constructor(
+    @InjectRepository(File)
+    private readonly fileRepository: Repository<File>,
+  ) {}
+
+  async create(fileDTO: FileDTO): Promise<FileResponse> {
+    const response: FileResponse = {
+      success: false,
+      message: 'File not created',
+      file: undefined,
+    };
+
+    const file = new File();
+    file.weight = fileDTO.weight;
+    file.height = fileDTO.height;
+    const fileSaved = await this.fileRepository.save(file);
+
+    if (!fileSaved) return response;
+
+    response.file = fileSaved;
+    response.success = true;
+    response.message = 'File created';
+
+    return response;
+  }
+}

@@ -4,8 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Gender } from '../entities/user.entity';
 
 @Module({
-  exports: [GenderService],
   imports: [TypeOrmModule.forFeature([Gender])],
+  exports: [GenderService, TypeOrmModule],
   controllers: [],
   providers: [GenderService],
 })

@@ -12,6 +12,7 @@ import {
   imports: [
     TypeOrmModule.forFeature([Membership, MembershipState, MembershipType]),
   ],
+  exports: [MembershipService, TypeOrmModule],
   controllers: [MembershipController],
   providers: [MembershipService],
 })

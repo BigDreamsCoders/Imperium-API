@@ -54,8 +54,8 @@ export class MembershipController {
     if (!stateResponse.success)
       throw new BadRequestException(stateResponse.message);
     const newMembershipResponse = await this.membershipService.create({
-      membershipState: stateResponse.membership,
-      membershipType: typeResponse.membership,
+      state: stateResponse.membership,
+      type: typeResponse.membership,
     });
     if (!newMembershipResponse.success)
       throw new InternalServerErrorException();

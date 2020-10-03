@@ -58,8 +58,8 @@ export class MembershipService {
     };
 
     const membership = new Membership();
-    membership.membershipState = memberDTO.membershipState;
-    membership.membershipType = memberDTO.membershipType;
+    membership.membershipState = memberDTO.state;
+    membership.membershipType = memberDTO.type;
 
     const membershipCreated = await this.membershipRepository.save(membership);
 

@@ -17,6 +17,6 @@ export interface MembershipStateResponse extends BasicResponse {
 }
 
 export interface NewMembership {
-  membershipType: MembershipType;
-  membershipState: MembershipState;
+  type: MembershipType;
+  state: MembershipState;
 }

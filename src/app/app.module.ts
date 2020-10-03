@@ -1,3 +1,4 @@
+import { FileModule } from './../file/file.module';
 import { MembershipModule } from './../membership/membership.module';
 import { GenderModule } from './../gender/gender.module';
 import { RolePrivilegeModule } from './../rolePrivilege/role-privilege.module';
@@ -14,6 +15,7 @@ import { ConfModule } from '../config.module';
 
 @Module({
   imports: [
+    FileModule,
     MembershipModule,
     GenderModule,
     RolePrivilegeModule,

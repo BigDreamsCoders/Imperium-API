@@ -57,7 +57,7 @@ export class User {
   @JoinColumn({ name: 'gender_id' })
   gender: Gender;
 
-  @OneToOne(type => Membership)
+  @OneToOne(type => Membership, { cascade: ['insert'] })
   @JoinColumn({ name: 'membership_id' })
   membership: Membership;
 
@@ -68,7 +68,7 @@ export class User {
   @JoinColumn({ name: 'role_id' })
   role: Role;
 
-  @OneToOne(type => File)
+  @OneToOne(type => File, { cascade: ['insert'] })
   @JoinColumn({ name: 'file_id' })
   file: File;
 

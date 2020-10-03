@@ -4,8 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RolePrivilege } from '../entities/role.entity';
 
 @Module({
-  exports: [RolePrivilegeService],
   imports: [TypeOrmModule.forFeature([RolePrivilege])],
+  exports: [RolePrivilegeService, TypeOrmModule],
   controllers: [],
   providers: [RolePrivilegeService],
 })

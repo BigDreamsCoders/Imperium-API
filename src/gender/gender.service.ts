@@ -21,11 +21,33 @@ export class GenderService {
       success: false,
       gender: undefined,
     };
+
     const gender = await this.genderRepository.findOne({ where: { name } });
+
     if (!gender) return response;
+
     response.gender = gender;
     response.message = 'Gender found';
     response.success = true;
+
+    return response;
+  }
+
+  async findById(id: string): Promise<GenderResponse> {
+    const response: GenderResponse = {
+      message: 'Gender not found',
+      success: false,
+      gender: undefined,
+    };
+
+    const gender = await this.genderRepository.findOne({ where: { id } });
+
+    if (!gender) return response;
+
+    response.gender = gender;
+    response.message = 'Gender found';
+    response.success = true;
+
     return response;
   }
 }
