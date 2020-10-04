@@ -99,7 +99,7 @@ CREATE TABLE "user"
 
 );
 
-CREATE TABLE "file"
+CREATE TABLE "medic_file"
 (
     "id"         SERIAL PRIMARY KEY      NOT NULL,
     "weight"     DECIMAL                 NOT NULL,
@@ -153,7 +153,7 @@ ALTER TABLE "workstation"
     ADD FOREIGN KEY ("workstation_type_id") REFERENCES "workstation_type" ("id");
 
 ALTER TABLE "user"
-    ADD FOREIGN KEY ("file_id") REFERENCES "file" ("id");
+    ADD FOREIGN KEY ("file_id") REFERENCES "medic_file" ("id");
 
 ALTER TABLE "user"
     ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
