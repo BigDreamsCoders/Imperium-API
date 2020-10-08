@@ -42,22 +42,19 @@ export class Privilege {
   @Column()
   action: string;
 
+  @Column()
+  possession: string;
+
+  @Column({ name: 'display_name' })
+  displayName: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }
-/*
-CREATE TABLE "rolePrivilege"
-(
-    "role_id"    INTEGER                 NOT NULL,
-    privilege_id INTEGER                 NOT NULL,
-    "created_at" TIMESTAMP DEFAULT now() NOT NULL,
-    "updated_at"  TIMESTAMP DEFAULT now() NOT NULL,
-    PRIMARY KEY ("role_id", privilege_id)
-);
-*/
+
 @Entity({ name: 'role_privilege' })
 export class RolePrivilege {
   @ManyToOne(

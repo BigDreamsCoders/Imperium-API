@@ -1,17 +1,30 @@
+enum PrivilegesActions {
+  CREATE = 'create',
+  READ = 'read',
+  UPDATE = 'update',
+  DELETE = 'delete',
+}
+
+enum Possession {
+  ANY = 'any',
+  OWN = 'own',
+}
+
 export const Privileges = {
   RESOURCES: {
     ROLES: 'ROLES',
     USERS: 'USERS',
+    ADMIN: 'ADMIN',
   },
   ACTION: {
-    C: 'create',
-    R: 'read',
-    U: 'update',
-    D: 'delete',
+    C: PrivilegesActions.CREATE,
+    R: PrivilegesActions.READ,
+    U: PrivilegesActions.UPDATE,
+    D: PrivilegesActions.DELETE,
   },
   POSSESSION: {
-    ANY: 'any',
-    OWN: 'own',
+    ANY: Possession.ANY,
+    OWN: Possession.OWN,
   },
 };
 

@@ -15,8 +15,10 @@ import { RolePrivilegeService } from './rolePrivilege/role-privilege.service';
             role: role.name,
             resource: privilege.resource,
             action: privilege.action,
+            possession: privilege.possession,
           }),
         );
+        console.log(role_privilege);
         return new RolesBuilder(role_privilege);
       },
     }),

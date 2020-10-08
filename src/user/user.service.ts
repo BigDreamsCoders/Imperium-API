@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { File } from '../entities/file.entity';
 import { Membership } from '../entities/membership.entity';
+import { Role, RolePrivilege } from '../entities/role.entity';
 import { User } from '../entities/user.entity';
 import { UserProcessed, UserResponse } from './interface/response.interface';
 
@@ -15,12 +16,24 @@ export class UserService {
   ) {}
 
   async findByEmail(email: string, select: string = ''): Promise<User> {
-    return await this.connection
+    this.userRepository.findOne({
+      where: { email },
+      relations: ['role'],
+    });
+    const user = await this.connection
       .getRepository(User)
       .createQueryBuilder('user')
       .where('user.email = :email', { email: email })
       .addSelect(select)
       .getOne();
+    if (!user) return null;
+
+    user.role = await this.connection
+      .createQueryBuilder()
+      .relation(User, 'role')
+      .of(user)
+      .loadOne();
+    return user;
   }
 
   async create(userProcessed: UserProcessed): Promise<UserResponse> {
@@ -53,7 +66,6 @@ export class UserService {
       user.setPassword(userProcessed.password);
 
       const userSaved = await this.userRepository.save(user);
-      console.log(userSaved);
       if (!userSaved) throw Error(response.message);
 
       response.success = true;

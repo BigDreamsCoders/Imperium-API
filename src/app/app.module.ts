@@ -12,6 +12,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AccControlModule } from '../access-control.module';
 import { ConfModule } from '../config.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Module({
   imports: [

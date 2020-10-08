@@ -15,4 +15,11 @@ export class RolePrivilegeService {
       relations: ['role', 'privilege'],
     });
   }
+
+  async findByRoleId(id: string): Promise<RolePrivilege[]> {
+    return await this.rolePrivilegeRepository.find({
+      where: { role: id },
+      relations: ['role', 'privilege'],
+    });
+  }
 }

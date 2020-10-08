@@ -11,16 +11,19 @@ import { GenderModule } from '../gender/gender.module';
 import { GenderService } from '../gender/gender.service';
 import { RoleModule } from '../role/role.module';
 import { RoleService } from '../role/role.service';
+import { RolePrivilegeModule } from '../rolePrivilege/role-privilege.module';
+import { RolePrivilege } from '../entities/role.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, RolePrivilege]),
     MembershipModule,
     FileModule,
     GenderModule,
     RoleModule,
+    RolePrivilegeModule,
   ],
-  exports: [UserService],
+  exports: [TypeOrmModule, UserService],
   controllers: [UserController],
   providers: [
     UserService,

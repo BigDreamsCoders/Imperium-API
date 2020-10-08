@@ -57,9 +57,10 @@ CREATE TABLE "role"
 CREATE TABLE "privilege"
 (
     "id"         SERIAL PRIMARY KEY      NOT NULL,
+    "display_name" VARCHAR               NOT NULL,
     "resource"   VARCHAR                 NOT NULL,
     "action"     VARCHAR                 NOT NULL,
-    "possession" VARCHAR                 NOT NULL,
+    "possession" VARCHAR DEFAULT '',
     "created_at" TIMESTAMP DEFAULT now() NOT NULL,
     "updated_at" TIMESTAMP DEFAULT now() NOT NULL
 );
@@ -227,13 +228,14 @@ ALTER TABLE "user"
 
 INSERT INTO "role" (name) VALUES ('ADMIN'), ('USER');
 
-INSERT INTO "privilege" ("resource", "action", "possession" )
+INSERT INTO "privilege" ("resource", "action", "possession", "display_name" )
 	VALUES 
-    ('ROLES', 'create', 'any'),
-    ('ROLES', 'read', 'any'),
-    ('ROLES', 'update', 'any'),
-    ('ROLES', 'delete', 'any'),
-    ('ROLES', 'read', 'own');
+    ('ROLES', 'create', '', 'Crear roles'),
+    ('ROLES', 'read', 'any', 'Leer roles de usuarios'),
+    ('ROLES', 'update', '', 'Actualizar roles'),
+    ('ROLES', 'delete', 'any', 'Eliminar roles'),
+    ('ROLES', 'read', 'own', 'Leer propio rol'),
+    ('ADMIN', 'read', 'own', 'Entrar a portal de administración');
 
 INSERT INTO "role_privilege" ("role_id", "privilege_id")
     VALUES (1, 1), (1, 2), (1, 3), (1, 4), (2, 5);
@@ -242,4 +244,4 @@ INSERT INTO "gender" ("name") VALUES ('MASCULINO'), ('FEMENINO');
 
 INSERT INTO "membership_state" ("name") VALUES ('ACTIVA'), ('INACTIVA'), ('VENCIDA');
 
-INSERT INTO "membership_type" ("name", "price") VALUES ('BASIC', 11.99), ('PREMIUM', 29.99);
+INSERT INTO "membership_type" ("name", "price") VALUES ('BASICA', 11.99), ('PREMIUM', 29.99);
