@@ -5,6 +5,8 @@ import {
   Get,
   HttpCode,
   InternalServerErrorException,
+  Param,
+  Query,
   Post,
   Req,
   UseGuards,
@@ -35,10 +37,25 @@ export class UserController {
 
   @UseGuards(JwtGuard, AuthGuard, ACGuard)
   @UseRoles({
+    resource: Privileges.RESOURCES.USERS,
+    action: Privileges.ACTION.R,
+    possession: Privileges.POSSESSION.ANY,
+  })
+  @Get('/:id*?')
+  async getUsers(
+    @Param('id') id: string,
+    @Query('limit') limit: number,
+    @Query('page') page: number,
+  ) {
+    return this.userService.find(id, limit, page);
+  }
+
+  @UseGuards(JwtGuard, AuthGuard, ACGuard)
+  @UseRoles({
     resource: Privileges.RESOURCES.ROLES,
     action: Privileges.ACTION.R,
   })
-  @Get()
+  @Get('/me')
   async getUser(@Req() req: Request) {
     return req.user;
   }

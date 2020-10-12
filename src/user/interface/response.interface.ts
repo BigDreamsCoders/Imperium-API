@@ -22,3 +22,8 @@ export interface UserProcessed {
   membershipState: MembershipState;
   file: FileDTO;
 }
+
+export interface PaginatedUser {
+  count: number;
+  data: User[];
+}

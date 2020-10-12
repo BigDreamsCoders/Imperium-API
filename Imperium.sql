@@ -235,10 +235,11 @@ INSERT INTO "privilege" ("resource", "action", "possession", "display_name" )
     ('ROLES', 'update', '', 'Actualizar roles'),
     ('ROLES', 'delete', 'any', 'Eliminar roles'),
     ('ROLES', 'read', 'own', 'Leer propio rol'),
-    ('ADMIN', 'read', 'own', 'Entrar a portal de administración');
+    ('ADMIN', 'read', 'own', 'Entrar a portal de administración'),
+    ('USERS', 'read', 'any', 'Leer usuarios');
 
 INSERT INTO "role_privilege" ("role_id", "privilege_id")
-    VALUES (1, 1), (1, 2), (1, 3), (1, 4), (2, 5);
+    VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 7), (2, 5);
 
 INSERT INTO "gender" ("name") VALUES ('MASCULINO'), ('FEMENINO');
 

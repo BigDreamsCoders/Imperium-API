@@ -26,6 +26,7 @@ export class AuthService {
   async login(user: any): Promise<TokenDTO> {
     const { email, id } = user;
     return {
+      email,
       token: this.jwtService.sign({ email, sub: id }),
     };
   }

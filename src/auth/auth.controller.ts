@@ -5,6 +5,7 @@ import { LocalAuthGuard } from '../guards/local.guard';
 import { ACGuard, UseRoles } from 'nest-access-control';
 import { Privileges } from '../utilities/costants';
 import { AuthGuard } from '../guards/auth.guard';
+import { JwtGuard } from '../guards/jwt.guard';
 
 @Controller('auth')
 export class AuthController {

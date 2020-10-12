@@ -5,7 +5,11 @@ import { File } from '../entities/file.entity';
 import { Membership } from '../entities/membership.entity';
 import { Role, RolePrivilege } from '../entities/role.entity';
 import { User } from '../entities/user.entity';
-import { UserProcessed, UserResponse } from './interface/response.interface';
+import {
+  PaginatedUser,
+  UserProcessed,
+  UserResponse,
+} from './interface/response.interface';
 
 @Injectable()
 export class UserService {
@@ -34,6 +38,27 @@ export class UserService {
       .of(user)
       .loadOne();
     return user;
+  }
+
+  async find(
+    id: string,
+    limit: number,
+    page: number,
+  ): Promise<User[] | User | PaginatedUser> {
+    if (id) return this.userRepository.findOne(id);
+    if (!limit || page === undefined)
+      return this.userRepository.find({
+        relations: ['membership', 'membership.membershipState'],
+      });
+    const [user, count] = await this.userRepository.findAndCount({
+      take: limit,
+      skip: page * limit,
+      relations: ['membership', 'membership.membershipState'],
+    });
+    return {
+      count,
+      data: user,
+    };
   }
 
   async create(userProcessed: UserProcessed): Promise<UserResponse> {
