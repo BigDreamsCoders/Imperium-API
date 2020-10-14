@@ -11,7 +11,7 @@ import { Membership } from './membership.entity';
 @Entity({ name: 'membership_type' })
 export class MembershipType {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;

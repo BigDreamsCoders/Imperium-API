@@ -10,7 +10,7 @@ import { Routine } from './routine.entity';
 @Entity({ name: 'routine_type' })
 export class RoutineType {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;

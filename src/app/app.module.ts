@@ -1,3 +1,4 @@
+import { EmailModule } from './../email/email.module';
 import { FileModule } from './../file/file.module';
 import { MembershipModule } from './../membership/membership.module';
 import { GenderModule } from './../gender/gender.module';
@@ -12,11 +13,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AccControlModule } from '../access-control.module';
 import { ConfModule } from '../config.module';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from '../guards/auth.guard';
+import { MyMailerModule } from '../mailer.module';
 
 @Module({
   imports: [
+    EmailModule,
     FileModule,
     MembershipModule,
     GenderModule,
@@ -28,6 +29,7 @@ import { AuthGuard } from '../guards/auth.guard';
     ConfModule,
     DatabaseModule,
     AccControlModule,
+    MyMailerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

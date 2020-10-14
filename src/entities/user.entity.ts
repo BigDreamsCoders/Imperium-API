@@ -18,7 +18,7 @@ import { Routine } from './routine.entity';
 @Entity()
 export class Gender {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;

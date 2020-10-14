@@ -12,7 +12,6 @@ export interface UserResponse extends BasicResponse {
 
 export interface UserProcessed {
   email: string;
-  password: string;
   firstName: string;
   lastName: string;
   birthday: string;

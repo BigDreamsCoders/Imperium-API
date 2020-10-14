@@ -13,7 +13,7 @@ import { User } from './user.entity';
 @Entity()
 export class Role {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;
@@ -34,7 +34,7 @@ export class Role {
 @Entity()
 export class Privilege {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   resource: string;

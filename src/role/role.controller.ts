@@ -27,7 +27,7 @@ export class RoleController {
 
   @HttpCode(200)
   @Get('/:id*?')
-  async findAll(@Param('id') id: string): Promise<Role[] | Role> {
+  async findAll(@Param('id') id: number): Promise<Role[] | Role> {
     const response = await this.roleService.find(id);
     if ('success' in response) {
       if (!response.success) {

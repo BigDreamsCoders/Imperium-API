@@ -8,7 +8,7 @@ import {
 @Entity()
 export class Workstation {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;

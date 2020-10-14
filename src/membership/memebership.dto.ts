@@ -1,36 +1,35 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumberString } from 'class-validator';
-import { DocumentationString } from './../utilities/costants';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class MembershipDTO {
   @ApiProperty({
-    description: DocumentationString.TYPE.ID('type'),
+    description: 'Type Id',
   })
-  @IsNumberString()
+  @IsNumber()
   @IsNotEmpty()
-  type: string;
+  type: number;
   @ApiProperty({
-    description: DocumentationString.TYPE.ID('state'),
+    description: 'State Id',
   })
-  @IsNumberString()
+  @IsNumber()
   @IsNotEmpty()
-  state: string;
+  state: number;
 }
 
 export class UpdateStateDTO {
   @ApiProperty({
-    description: DocumentationString.TYPE.ID('state'),
+    description: 'State Id',
   })
-  @IsNumberString()
+  @IsNumber()
   @IsNotEmpty()
-  state: string;
+  state: number;
 }
 
 export class UpdateTypeDTO {
   @ApiProperty({
-    description: DocumentationString.TYPE.ID('type'),
+    description: 'Type Id',
   })
-  @IsNumberString()
+  @IsNumber()
   @IsNotEmpty()
-  type: string;
+  type: number;
 }

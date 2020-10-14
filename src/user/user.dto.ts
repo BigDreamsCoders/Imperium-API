@@ -5,6 +5,7 @@ import {
   ValidateNested,
   IsString,
   IsDateString,
+  IsNumber,
 } from 'class-validator';
 import { FileDTO } from '../file/file.dto';
 import { MembershipDTO } from '../membership/memebership.dto';
@@ -17,13 +18,6 @@ export class NewUserDTO {
   @IsString()
   @IsNotEmpty()
   email: string;
-
-  @ApiProperty({
-    description: 'User raw password',
-  })
-  @IsString()
-  @IsNotEmpty()
-  password: string;
 
   @ApiProperty({
     description: 'User first name',
@@ -47,18 +41,18 @@ export class NewUserDTO {
   birthday: string;
 
   @ApiProperty({
-    description: DocumentationString.TYPE.ID("user's gender"),
+    description: 'Gender Id',
   })
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  genderId: string;
+  genderId: number;
 
   @ApiProperty({
     description: DocumentationString.TYPE.ID("user's role"),
   })
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  roleId: string;
+  roleId: number;
 
   @ApiProperty()
   @ValidateNested()

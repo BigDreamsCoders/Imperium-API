@@ -13,6 +13,8 @@ import { RoleModule } from '../role/role.module';
 import { RoleService } from '../role/role.service';
 import { RolePrivilegeModule } from '../rolePrivilege/role-privilege.module';
 import { RolePrivilege } from '../entities/role.entity';
+import { EmailModule } from '../email/email.module';
+import { EmailService } from '../email/email.service';
 
 @Module({
   imports: [
@@ -22,6 +24,7 @@ import { RolePrivilege } from '../entities/role.entity';
     GenderModule,
     RoleModule,
     RolePrivilegeModule,
+    EmailModule,
   ],
   exports: [TypeOrmModule, UserService],
   controllers: [UserController],
@@ -31,6 +34,7 @@ import { RolePrivilege } from '../entities/role.entity';
     FileService,
     GenderService,
     RoleService,
+    EmailService,
   ],
 })
 export class UserModule {}

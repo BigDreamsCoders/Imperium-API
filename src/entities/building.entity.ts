@@ -11,7 +11,7 @@ import { User } from './user.entity';
 @Entity({ name: 'building_entrance_action' })
 export class BuildingEntranceAction {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;

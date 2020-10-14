@@ -14,6 +14,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { ACGuard, UseRoles } from 'nest-access-control';
+import { EmailService } from '../email/email.service';
 import { FileService } from '../file/file.service';
 import { GenderService } from '../gender/gender.service';
 import { AuthGuard } from '../guards/auth.guard';
@@ -33,21 +34,13 @@ export class UserController {
     private readonly fileService: FileService,
     private readonly genderService: GenderService,
     private readonly roleService: RoleService,
+    private readonly emailService: EmailService,
   ) {}
 
-  @UseGuards(JwtGuard, AuthGuard, ACGuard)
-  @UseRoles({
-    resource: Privileges.RESOURCES.USERS,
-    action: Privileges.ACTION.R,
-    possession: Privileges.POSSESSION.ANY,
-  })
-  @Get('/:id*?')
-  async getUsers(
-    @Param('id') id: string,
-    @Query('limit') limit: number,
-    @Query('page') page: number,
-  ) {
-    return this.userService.find(id, limit, page);
+  @UseGuards(JwtGuard)
+  @Get('/gender')
+  async getGenders() {
+    return this.genderService.findAll();
   }
 
   @UseGuards(JwtGuard, AuthGuard, ACGuard)
@@ -81,16 +74,37 @@ export class UserController {
 
     delete newUserDTO.membership;
     try {
-      const userResponse = await this.userService.create({
-        ...newUserDTO,
-        membershipState: state.membership,
-        membershipType: type.membership,
-        gender: gender.gender,
-        role: role.role,
-      });
+      const userResponse = await this.userService.create(
+        {
+          ...newUserDTO,
+          membershipState: state.membership,
+          membershipType: type.membership,
+          gender: gender.gender,
+          role: role.role,
+        },
+        (dest: string, name: string, pass: string) => {
+          this.emailService.sendPassword(dest, name, pass);
+        },
+      );
+
       return userResponse.user;
     } catch (error) {
       throw new InternalServerErrorException((error as Error).message);
     }
+  }
+
+  @UseGuards(JwtGuard, AuthGuard, ACGuard)
+  @UseRoles({
+    resource: Privileges.RESOURCES.USERS,
+    action: Privileges.ACTION.R,
+    possession: Privileges.POSSESSION.ANY,
+  })
+  @Get('/:id*?')
+  async getUsers(
+    @Param('id') id: string,
+    @Query('limit') limit: number,
+    @Query('page') page: number,
+  ) {
+    return this.userService.find(id, limit, page);
   }
 }

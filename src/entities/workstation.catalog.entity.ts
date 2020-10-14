@@ -12,7 +12,7 @@ import { Workstation } from './workstation.entity';
 @Entity({ name: 'workstation_action' })
 export class WorkstationAction {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;

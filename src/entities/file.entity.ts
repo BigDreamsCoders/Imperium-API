@@ -9,7 +9,7 @@ import {
 @Entity({ name: 'medic_file' })
 export class File {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   weight: number;

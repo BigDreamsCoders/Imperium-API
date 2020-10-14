@@ -1,5 +1,4 @@
 import {
-  Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
@@ -12,7 +11,7 @@ import { MembershipState, MembershipType } from './membership.catalog.entity';
 @Entity()
 export class Membership {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @ManyToOne(
     type => MembershipType,

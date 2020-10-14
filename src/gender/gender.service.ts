@@ -33,7 +33,7 @@ export class GenderService {
     return response;
   }
 
-  async findById(id: string): Promise<GenderResponse> {
+  async findById(id: number): Promise<GenderResponse> {
     const response: GenderResponse = {
       message: 'Gender not found',
       success: false,

@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { File } from '../entities/file.entity';
 import { Membership } from '../entities/membership.entity';
-import { Role, RolePrivilege } from '../entities/role.entity';
 import { User } from '../entities/user.entity';
+import { generateTempPassword } from '../utilities/functions';
 import {
   PaginatedUser,
   UserProcessed,
@@ -61,7 +61,10 @@ export class UserService {
     };
   }
 
-  async create(userProcessed: UserProcessed): Promise<UserResponse> {
+  async create(
+    userProcessed: UserProcessed,
+    mailCallback: any,
+  ): Promise<UserResponse> {
     const response: UserResponse = {
       message: 'User not created',
       success: false,
@@ -79,6 +82,7 @@ export class UserService {
       file.weight = userProcessed.file.weight;
       file.height = userProcessed.file.height;
 
+      const pass = generateTempPassword();
       const user = new User();
       user.email = userProcessed.email;
       user.firstName = userProcessed.firstName;
@@ -88,10 +92,13 @@ export class UserService {
       user.membership = membership;
       user.role = userProcessed.role;
       user.birthday = new Date(userProcessed.birthday);
-      user.setPassword(userProcessed.password);
+      user.password = pass;
+      user.setPassword(user.password);
 
       const userSaved = await this.userRepository.save(user);
       if (!userSaved) throw Error(response.message);
+
+      await mailCallback(user.email, user.firstName, pass);
 
       response.success = true;
       response.message = 'User created';
@@ -100,6 +107,7 @@ export class UserService {
       await queryRunner.commitTransaction();
       return response;
     } catch (e) {
+      console.log(e);
       await queryRunner.rollbackTransaction();
       throw Error(response.message);
     } finally {

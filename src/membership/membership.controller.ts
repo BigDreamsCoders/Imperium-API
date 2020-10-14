@@ -9,6 +9,7 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { MembershipService } from './membership.service';
 import {
@@ -19,15 +20,70 @@ import {
 import { MembershipResponse } from './interface/memebership.interface';
 import { Membership } from '../entities/membership.entity';
 import { ApiTags } from '@nestjs/swagger';
+import { JwtGuard } from '../guards/jwt.guard';
 
 @ApiTags('Membership')
 @Controller('membership')
 export class MembershipController {
   constructor(private readonly membershipService: MembershipService) {}
 
+  @UseGuards(JwtGuard)
+  @Get('/state')
+  async getAllStates() {
+    return this.membershipService.findAllState();
+  }
+
+  @HttpCode(200)
+  @Put('/state/:id')
+  async updateState(@Param('id') id: number, @Body() stateDTO: UpdateStateDTO) {
+    const stateResponse = await this.membershipService.findStateByID(
+      stateDTO.state,
+    );
+    if (!stateResponse.success)
+      throw new BadRequestException(stateResponse.message);
+    const membershipResponse = await this.membershipService.findById(id);
+    if (!membershipResponse.success)
+      throw new BadRequestException(membershipResponse.message);
+    const membershipUpdated = await this.membershipService.updateState(
+      membershipResponse.membership,
+      stateResponse.membership,
+    );
+    if (!membershipUpdated.success) throw new InternalServerErrorException();
+
+    delete membershipUpdated.success;
+    return membershipUpdated;
+  }
+
+  @UseGuards(JwtGuard)
+  @Get('/type')
+  async getAllTypes() {
+    return this.membershipService.findAllType();
+  }
+
+  @HttpCode(200)
+  @Put('/type/:id')
+  async updateType(@Param('id') id: number, @Body() typeDTO: UpdateTypeDTO) {
+    const typeResponse = await this.membershipService.findTypeByID(
+      typeDTO.type,
+    );
+    if (!typeResponse.success)
+      throw new BadRequestException(typeResponse.message);
+    const membershipResponse = await this.membershipService.findById(id);
+    if (!membershipResponse.success)
+      throw new BadRequestException(membershipResponse.message);
+    const membershipUpdated = await this.membershipService.updateType(
+      membershipResponse.membership,
+      typeResponse.membership,
+    );
+    if (!membershipUpdated.success) throw new InternalServerErrorException();
+
+    delete membershipUpdated.success;
+    return membershipUpdated;
+  }
+
   @HttpCode(200)
   @Get('/:id*?')
-  async find(@Param('id') id: string): Promise<Membership | Membership[]> {
+  async find(@Param('id') id: number): Promise<Membership | Membership[]> {
     const membership = await this.membershipService.find(id);
     if ('success' in membership) {
       if (!membership.success) {
@@ -48,7 +104,7 @@ export class MembershipController {
     );
     if (!typeResponse.success)
       throw new BadRequestException(typeResponse.message);
-    const stateResponse = await this.membershipService.findTypeByID(
+    const stateResponse = await this.membershipService.findStateByID(
       membershipDTO.state,
     );
     if (!stateResponse.success)
@@ -65,7 +121,7 @@ export class MembershipController {
 
   @HttpCode(200)
   @Delete('/:id')
-  async remove(@Param('id') id: string): Promise<MembershipResponse> {
+  async remove(@Param('id') id: number): Promise<MembershipResponse> {
     const membershipResponse = (await this.membershipService.find(
       id,
     )) as MembershipResponse;
@@ -81,47 +137,5 @@ export class MembershipController {
 
     delete membershipDeleted.success;
     return membershipDeleted;
-  }
-
-  @HttpCode(200)
-  @Put('/state/:id')
-  async updateState(@Param('id') id: string, @Body() stateDTO: UpdateStateDTO) {
-    const stateResponse = await this.membershipService.findStateByID(
-      stateDTO.state,
-    );
-    if (!stateResponse.success)
-      throw new BadRequestException(stateResponse.message);
-    const membershipResponse = await this.membershipService.findById(id);
-    if (!membershipResponse.success)
-      throw new BadRequestException(membershipResponse.message);
-    const membershipUpdated = await this.membershipService.updateState(
-      membershipResponse.membership,
-      stateResponse.membership,
-    );
-    if (!membershipUpdated.success) throw new InternalServerErrorException();
-
-    delete membershipUpdated.success;
-    return membershipUpdated;
-  }
-
-  @HttpCode(200)
-  @Put('/type/:id')
-  async updateType(@Param('id') id: string, @Body() typeDTO: UpdateTypeDTO) {
-    const typeResponse = await this.membershipService.findTypeByID(
-      typeDTO.type,
-    );
-    if (!typeResponse.success)
-      throw new BadRequestException(typeResponse.message);
-    const membershipResponse = await this.membershipService.findById(id);
-    if (!membershipResponse.success)
-      throw new BadRequestException(membershipResponse.message);
-    const membershipUpdated = await this.membershipService.updateType(
-      membershipResponse.membership,
-      typeResponse.membership,
-    );
-    if (!membershipUpdated.success) throw new InternalServerErrorException();
-
-    delete membershipUpdated.success;
-    return membershipUpdated;
   }
 }

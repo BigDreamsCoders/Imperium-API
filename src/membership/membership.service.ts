@@ -24,14 +24,14 @@ export class MembershipService {
     private readonly membershipStateRepository: Repository<MembershipState>,
   ) {}
 
-  async find(id: string): Promise<Membership[] | MembershipResponse> {
+  async find(id: number): Promise<Membership[] | MembershipResponse> {
     if (id) {
       return await this.findById(id);
     }
     return await this.membershipRepository.find();
   }
 
-  async findById(id: string): Promise<MembershipResponse> {
+  async findById(id: number): Promise<MembershipResponse> {
     const response: MembershipResponse = {
       success: false,
       message: 'Membership not found',
@@ -140,7 +140,7 @@ export class MembershipService {
     return await this.membershipTypeRepository.find();
   }
 
-  async findTypeByID(id: string): Promise<MembershipTypeResponse> {
+  async findTypeByID(id: number): Promise<MembershipTypeResponse> {
     const response: MembershipTypeResponse = {
       message: 'Membership type could not be found',
       success: false,
@@ -164,7 +164,7 @@ export class MembershipService {
     return await this.membershipStateRepository.find();
   }
 
-  async findStateByID(id: string): Promise<MembershipStateResponse> {
+  async findStateByID(id: number): Promise<MembershipStateResponse> {
     const response: MembershipStateResponse = {
       message: 'Membership type could not be found',
       success: false,

@@ -12,14 +12,14 @@ export class RoleService {
     private readonly roleRepository: Repository<Role>,
   ) {}
 
-  async find(id: string): Promise<RoleResponse | Role[]> {
+  async find(id: number): Promise<RoleResponse | Role[]> {
     if (id) {
       return await this.findByID(id);
     }
     return await this.roleRepository.find();
   }
 
-  async findByID(id: string): Promise<RoleResponse> {
+  async findByID(id: number): Promise<RoleResponse> {
     const response: RoleResponse = {
       message: 'Role not found',
       success: false,
@@ -27,7 +27,7 @@ export class RoleService {
     };
 
     const role = await this.roleRepository.findOne({
-      where: { id: id.toUpperCase() },
+      where: { id },
     });
 
     if (!role) return response;

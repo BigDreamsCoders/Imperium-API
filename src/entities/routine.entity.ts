@@ -13,7 +13,7 @@ import { User } from './user.entity';
 @Entity()
 export class Routine {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;
