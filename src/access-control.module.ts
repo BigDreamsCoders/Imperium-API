@@ -18,7 +18,6 @@ import { RolePrivilegeService } from './rolePrivilege/role-privilege.service';
             possession: privilege.possession,
           }),
         );
-        console.log(role_privilege);
         return new RolesBuilder(role_privilege);
       },
     }),

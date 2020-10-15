@@ -10,10 +10,13 @@ import {
   Post,
   Req,
   UseGuards,
+  Patch,
+  Delete,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { ACGuard, UseRoles } from 'nest-access-control';
+import { AuthService } from '../auth/auth.service';
 import { EmailService } from '../email/email.service';
 import { FileService } from '../file/file.service';
 import { GenderService } from '../gender/gender.service';
@@ -22,7 +25,7 @@ import { JwtGuard } from '../guards/jwt.guard';
 import { MembershipService } from '../membership/membership.service';
 import { RoleService } from '../role/role.service';
 import { Privileges } from '../utilities/costants';
-import { NewUserDTO } from './user.dto';
+import { NewUserDTO, UpdatePasswordDTO } from './user.dto';
 import { UserService } from './user.service';
 
 @ApiTags('Users')
@@ -93,15 +96,51 @@ export class UserController {
     }
   }
 
+  @HttpCode(200)
+  @UseGuards(JwtGuard)
+  @Patch('/password')
+  async updatePassword(
+    @Req() req: any,
+    @Body() updatePasswordDTO: UpdatePasswordDTO,
+  ) {
+    const user = await this.userService.validateUser(
+      req.user.email,
+      updatePasswordDTO.password,
+    );
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+    const response = await this.userService.updatePassword(
+      user,
+      updatePasswordDTO.newPassword,
+    );
+    if (!response.success)
+      throw new InternalServerErrorException(response.message);
+    return { message: response.message };
+  }
+
+  @HttpCode(200)
+  @UseGuards(JwtGuard)
+  @Delete('/:id')
+  async deleteUser(@Param('id') id: number) {
+    const userResponse = await this.userService.findById(id);
+    if (!userResponse.success)
+      return new BadRequestException(userResponse.message);
+    const userRemoved = await this.userService.deleteUser(userResponse.user);
+    if (!userRemoved.success)
+      return new InternalServerErrorException(userRemoved.message);
+    return { message: userRemoved.message };
+  }
+
   @UseGuards(JwtGuard, AuthGuard, ACGuard)
   @UseRoles({
     resource: Privileges.RESOURCES.USERS,
     action: Privileges.ACTION.R,
-    possession: Privileges.POSSESSION.ANY,
+    possession: Privileges.POSSESSION.OWN,
   })
   @Get('/:id*?')
   async getUsers(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Query('limit') limit: number,
     @Query('page') page: number,
   ) {

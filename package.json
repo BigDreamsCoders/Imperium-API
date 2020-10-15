@@ -36,6 +36,7 @@
     "class-validator": "^0.12.2",
     "generate-password": "^1.5.1",
     "handlebars": "^4.7.6",
+    "morgan": "^1.10.0",
     "nest-access-control": "^2.0.2",
     "nodemailer": "^4.7.0",
     "passport": "^0.4.1",

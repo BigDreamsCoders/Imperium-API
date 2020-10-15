@@ -9,7 +9,6 @@ import * as path from 'path';
     MailerModule.forRootAsync({
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
-        console.log(path.join(__dirname, '/templates/pages'));
         return {
           transport: {
             service: configService.get<string>('EMAIL_SERVICE'),

@@ -12,17 +12,6 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string) {
-    const user: User = await this.userService.findByEmail(
-      email,
-      'user.password',
-    );
-    if (!user) {
-      return null;
-    }
-    return user.comparePassword(password) ? user : null;
-  }
-
   async login(user: any): Promise<TokenDTO> {
     const { email, id } = user;
     return {

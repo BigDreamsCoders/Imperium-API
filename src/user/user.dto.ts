@@ -65,3 +65,19 @@ export class NewUserDTO {
   @Type(() => FileDTO)
   file: FileDTO;
 }
+
+export class UpdatePasswordDTO {
+  @ApiProperty({
+    description: 'User password',
+  })
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @ApiProperty({
+    description: 'New user email',
+  })
+  @IsString()
+  @IsNotEmpty()
+  newPassword: string;
+}

@@ -15,8 +15,8 @@ import { join } from 'path';
           username: configService.get<string>('DB_USERNAME'),
           password: configService.get<string>('DB_PASSWORD'),
           database: configService.get<string>('DB_DATABASE'),
+          logging: configService.get<boolean>('DB_LOGGING', false),
           entities: [join(__dirname, '/**/*.entity.js')],
-          logging: true,
           synchronize: false,
         };
       },
