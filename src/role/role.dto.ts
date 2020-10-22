@@ -1,7 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { DocumentationString } from '../utilities/costants';
 
 export class RoleDTO {
   @ApiProperty({
