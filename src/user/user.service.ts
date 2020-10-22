@@ -3,13 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { File } from '../entities/file.entity';
 import { Membership } from '../entities/membership.entity';
-import { User } from '../entities/user.entity';
+import { Role } from '../entities/role.entity';
+import { Gender, User } from '../entities/user.entity';
 import { generateTempPassword } from '../utilities/functions';
 import {
   PaginatedUser,
   UserProcessed,
   UserResponse,
 } from './interface/response.interface';
+import { UpdateUser } from './user.dto';
 
 @Injectable()
 export class UserService {
@@ -27,7 +29,7 @@ export class UserService {
     return user.comparePassword(password) ? user : null;
   }
 
-  async findByEmail(email: string, select: string = ''): Promise<User> {
+  async findByEmail(email: string, select = ''): Promise<User> {
     this.userRepository.findOne({
       where: { email },
       relations: ['role'],
@@ -78,7 +80,7 @@ export class UserService {
           'file',
         ],
       });
-    if (!limit || page === undefined)
+    if (limit === undefined || page === undefined)
       return this.userRepository.find({
         relations: ['membership', 'membership.membershipState'],
       });
@@ -86,6 +88,7 @@ export class UserService {
       take: limit,
       skip: page * limit,
       relations: ['membership', 'membership.membershipState'],
+      order: { id: 'ASC' },
     });
     return {
       count,
@@ -139,6 +142,7 @@ export class UserService {
       await queryRunner.commitTransaction();
       return response;
     } catch (e) {
+      console.log(e);
       await queryRunner.rollbackTransaction();
       throw Error(response.message);
     } finally {
@@ -183,5 +187,42 @@ export class UserService {
     response.success = true;
     response.user = userRemoved;
     return response;
+  }
+
+  async updateUserBasicInfo(
+    user: User,
+    gender: Gender,
+    role: Role,
+    updatedFileds: UpdateUser,
+  ) {
+    const response: UserResponse = {
+      message: 'User not created',
+      success: false,
+      user: undefined,
+    };
+    const queryRunner = this.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      user.email = updatedFileds.email;
+      user.firstName = updatedFileds.firstName;
+      user.lastName = updatedFileds.lastName;
+      user.birthday = new Date(updatedFileds.birthday);
+      user.gender = gender;
+      user.role = role;
+
+      const userSaved = await this.userRepository.save(user);
+      if (!userSaved) throw Error(response.message);
+
+      response.success = true;
+      response.user = userSaved;
+      response.message = 'User updated';
+      return response;
+    } catch (e) {
+      await queryRunner.rollbackTransaction();
+      throw Error(response.message);
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

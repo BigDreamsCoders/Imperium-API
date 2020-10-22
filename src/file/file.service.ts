@@ -12,6 +12,23 @@ export class FileService {
     private readonly fileRepository: Repository<File>,
   ) {}
 
+  async findById(id: number) {
+    const response: FileResponse = {
+      success: false,
+      message: 'File not found',
+      file: undefined,
+    };
+
+    const file = await this.fileRepository.findOne({ where: { id } });
+    if (!file) return response;
+
+    response.file = file;
+    response.success = true;
+    response.message = 'File found';
+
+    return response;
+  }
+
   async create(fileDTO: FileDTO): Promise<FileResponse> {
     const response: FileResponse = {
       success: false,
@@ -27,6 +44,25 @@ export class FileService {
     if (!fileSaved) return response;
 
     response.file = fileSaved;
+    response.success = true;
+    response.message = 'File created';
+
+    return response;
+  }
+
+  async updateFile(file: File, fileDTO: FileDTO): Promise<FileResponse> {
+    const response: FileResponse = {
+      success: false,
+      message: 'File not updated',
+      file: undefined,
+    };
+    file.height = fileDTO.height;
+    file.weight = fileDTO.weight;
+    const fileUpdated = await this.fileRepository.save(file);
+
+    if (!fileUpdated) return response;
+
+    response.file = fileUpdated;
     response.success = true;
     response.message = 'File created';
 

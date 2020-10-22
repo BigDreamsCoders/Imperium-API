@@ -11,19 +11,16 @@ import { GenderModule } from '../gender/gender.module';
 import { GenderService } from '../gender/gender.service';
 import { RoleModule } from '../role/role.module';
 import { RoleService } from '../role/role.service';
-import { RolePrivilegeModule } from '../rolePrivilege/role-privilege.module';
-import { RolePrivilege } from '../entities/role.entity';
 import { EmailModule } from '../email/email.module';
 import { EmailService } from '../email/email.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, RolePrivilege]),
+    TypeOrmModule.forFeature([User]),
     MembershipModule,
     FileModule,
     GenderModule,
     RoleModule,
-    RolePrivilegeModule,
     EmailModule,
   ],
   exports: [TypeOrmModule, UserService],

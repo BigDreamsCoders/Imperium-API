@@ -1,22 +1,27 @@
 import { Module } from '@nestjs/common';
 import { AccessControlModule, RolesBuilder } from 'nest-access-control';
-import { RolePrivilegeModule } from './rolePrivilege/role-privilege.module';
-import { RolePrivilegeService } from './rolePrivilege/role-privilege.service';
+import { Role } from './entities/role.entity';
+import { RoleModule } from './role/role.module';
+import { RoleService } from './role/role.service';
 
 @Module({
   imports: [
     AccessControlModule.forRootAsync({
-      imports: [RolePrivilegeModule],
-      inject: [RolePrivilegeService],
-      useFactory: async (rolePrivilegeService: RolePrivilegeService) => {
-        const role_privilege_raw = await rolePrivilegeService.findAll();
-        const role_privilege = role_privilege_raw.map(
-          ({ role, privilege }) => ({
-            role: role.name,
-            resource: privilege.resource,
-            action: privilege.action,
-            possession: privilege.possession,
-          }),
+      imports: [RoleModule],
+      inject: [RoleService],
+      useFactory: async (roleService: RoleService) => {
+        const role_privilege_raw = await roleService.find(undefined);
+        const role_privilege = (role_privilege_raw as Role[]).reduce(
+          (prev, { name, privilege: privileges }) => {
+            const privilegesXrole = privileges.map(privilege => ({
+              role: name,
+              resource: privilege.resource,
+              action: privilege.action,
+              possession: privilege.possession,
+            }));
+            return [...prev, ...privilegesXrole];
+          },
+          [],
         );
         return new RolesBuilder(role_privilege);
       },

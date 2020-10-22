@@ -11,7 +11,7 @@ import { FileDTO } from '../file/file.dto';
 import { MembershipDTO } from '../membership/memebership.dto';
 import { DocumentationString } from '../utilities/costants';
 
-export class NewUserDTO {
+export class UserDTO {
   @ApiProperty({
     description: 'User email',
   })
@@ -80,4 +80,48 @@ export class UpdatePasswordDTO {
   @IsString()
   @IsNotEmpty()
   newPassword: string;
+}
+
+export class UpdateUser {
+  @ApiProperty({
+    description: 'User email',
+  })
+  @IsString()
+  @IsNotEmpty()
+  email: string;
+
+  @ApiProperty({
+    description: 'User first name',
+  })
+  @IsString()
+  @IsNotEmpty()
+  firstName: string;
+
+  @ApiProperty({
+    description: 'User last name',
+  })
+  @IsString()
+  @IsNotEmpty()
+  lastName: string;
+
+  @ApiProperty({
+    description: "User's birthday",
+  })
+  @IsDateString()
+  @IsNotEmpty()
+  birthday: string;
+
+  @ApiProperty({
+    description: 'Gender Id',
+  })
+  @IsNumber()
+  @IsNotEmpty()
+  genderId: number;
+
+  @ApiProperty({
+    description: 'Role Id',
+  })
+  @IsNumber()
+  @IsNotEmpty()
+  roleId: number;
 }

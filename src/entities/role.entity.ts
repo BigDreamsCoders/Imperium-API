@@ -3,33 +3,14 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
-
-@Entity()
-export class Role {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  name: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
-
-  @OneToMany(
-    type => User,
-    user => user.role,
-  )
-  users: User[];
-}
 
 @Entity()
 export class Privilege {
@@ -55,27 +36,27 @@ export class Privilege {
   updatedAt: Date;
 }
 
-@Entity({ name: 'role_privilege' })
-export class RolePrivilege {
-  @ManyToOne(
-    type => Role,
-    role => role.id,
-    { primary: true, onDelete: 'CASCADE' },
-  )
-  @JoinColumn({ name: 'role_id' })
-  role: Role;
+@Entity()
+export class Role {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @ManyToOne(
-    type => Privilege,
-    privilege => privilege.id,
-    { primary: true, onDelete: 'CASCADE' },
-  )
-  @JoinColumn({ name: 'privilege_id' })
-  privilege: Privilege;
+  @Column()
+  name: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @ManyToMany(type => Privilege)
+  @JoinTable()
+  privilege: Privilege[];
+
+  @OneToMany(
+    type => User,
+    user => user.role,
+  )
+  users: User[];
 }

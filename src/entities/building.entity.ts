@@ -36,6 +36,7 @@ export class BuildingEntrance {
     () => BuildingEntranceAction,
     action => action.id,
   )
+  @JoinColumn({ name: 'building_action_id' })
   action: BuildingEntranceAction;
 
   @CreateDateColumn({ name: 'created_at' })
