@@ -142,6 +142,7 @@ export class UserService {
       await queryRunner.commitTransaction();
       return response;
     } catch (e) {
+      console.log(e);
       await queryRunner.rollbackTransaction();
       throw Error(response.message);
     } finally {
