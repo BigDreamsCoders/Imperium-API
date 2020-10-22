@@ -174,10 +174,10 @@ CREATE TABLE "user"
 );
 
 ALTER TABLE "role_privilege_privilege"
-    ADD FOREIGN KEY ("roleId") REFERENCES "role" ("id") ON DELETE CASCADE;
+    ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "role_privilege_privilege"
-    ADD FOREIGN KEY ("privilegeId") REFERENCES "privilege" ("id") ON DELETE CASCADE;
+    ADD FOREIGN KEY ("privilege_id") REFERENCES "privilege" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "workstation"
     ADD FOREIGN KEY ("workstation_state_id") REFERENCES "workstation_state" ("id");
@@ -223,3 +223,26 @@ ALTER TABLE "user"
 
 ALTER TABLE "user"
     ADD FOREIGN KEY ("membership_id") REFERENCES "membership" ("id");
+
+-- database pupulation
+
+INSERT INTO "role" (name) VALUES ('ADMIN'), ('USER');
+
+INSERT INTO "privilege" ("resource", "action", "possession", "display_name" )
+	VALUES 
+    ('ROLES', 'create', '', 'Crear roles'),
+    ('ROLES', 'read', 'any', 'Leer roles de usuarios'),
+    ('ROLES', 'update', '', 'Actualizar roles'),
+    ('ROLES', 'delete', 'any', 'Eliminar roles'),
+    ('ROLES', 'read', 'own', 'Leer propio rol'),
+    ('ADMIN', 'read', 'own', 'Entrar a portal de administración'),
+    ('USERS', 'read', 'any', 'Leer usuarios');
+
+INSERT INTO "role_privilege" ("role_id", "privilege_id")
+    VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 6), (1, 7), (2, 5);
+
+INSERT INTO "gender" ("name") VALUES ('MASCULINO'), ('FEMENINO');
+
+INSERT INTO "membership_state" ("name") VALUES ('ACTIVA'), ('INACTIVA'), ('VENCIDA');
+
+INSERT INTO "membership_type" ("name", "price") VALUES ('BASICA', 11.99), ('PREMIUM', 29.99);
