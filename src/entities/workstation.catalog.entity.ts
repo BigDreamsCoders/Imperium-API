@@ -5,6 +5,7 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 import { Workstation } from './workstation.entity';
@@ -47,9 +48,39 @@ export class WorkstationUse {
     () => WorkstationAction,
     action => action.id,
   )
-  @JoinColumn({ name: 'workstation_action' })
+  @JoinColumn({ name: 'workstation_action_id' })
   action: WorkstationAction;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
+}
+
+@Entity({ name: 'workstation_state' })
+export class WorkstationState {
+  @PrimaryGeneratedColumn()
+  id: string;
+
+  @Column()
+  name: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+}
+
+@Entity({ name: 'workstation_type' })
+export class WorkstationType {
+  @PrimaryGeneratedColumn()
+  id: string;
+
+  @Column()
+  name: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

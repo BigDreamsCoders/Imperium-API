@@ -1,8 +1,8 @@
+import { WorkstationModule } from './../workstation/workstation.module';
 import { EmailModule } from './../email/email.module';
 import { FileModule } from './../file/file.module';
 import { MembershipModule } from './../membership/membership.module';
 import { GenderModule } from './../gender/gender.module';
-import { RolePrivilegeModule } from './../rolePrivilege/role-privilege.module';
 import { PrivilegeModule } from './../privilege/privilege.module';
 import { RoleModule } from './../role/role.module';
 import { AuthModule } from './../auth/auth.module';
@@ -17,11 +17,11 @@ import { MyMailerModule } from '../mailer.module';
 
 @Module({
   imports: [
+    WorkstationModule,
     EmailModule,
     FileModule,
     MembershipModule,
     GenderModule,
-    RolePrivilegeModule,
     PrivilegeModule,
     RoleModule,
     AuthModule,

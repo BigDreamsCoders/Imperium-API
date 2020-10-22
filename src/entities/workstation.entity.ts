@@ -2,9 +2,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import {
+  WorkstationState,
+  WorkstationType,
+} from './workstation.catalog.entity';
 @Entity()
 export class Workstation {
   @PrimaryGeneratedColumn()
@@ -16,35 +22,19 @@ export class Workstation {
   @Column()
   img: string;
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  @ManyToOne(
+    type => WorkstationType,
+    workstationType => workstationType.id,
+  )
+  @JoinColumn({ name: 'workstation_type_id' })
+  workstationType: WorkstationType;
 
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
-}
-
-@Entity({ name: 'workstation_state' })
-export class WorkstationState {
-  @PrimaryGeneratedColumn()
-  id: string;
-
-  @Column()
-  name: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
-}
-
-@Entity({ name: 'workstation_type' })
-export class WorkstationType {
-  @PrimaryGeneratedColumn()
-  id: string;
-
-  @Column()
-  name: string;
+  @ManyToOne(
+    type => WorkstationState,
+    workstationState => workstationState.id,
+  )
+  @JoinColumn({ name: 'workstation_state_id' })
+  workstationState: WorkstationState;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

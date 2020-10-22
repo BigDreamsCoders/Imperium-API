@@ -12,12 +12,13 @@ import {
   UseGuards,
   Patch,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { ACGuard, UseRoles } from 'nest-access-control';
-import { AuthService } from '../auth/auth.service';
 import { EmailService } from '../email/email.service';
+import { FileDTO } from '../file/file.dto';
 import { FileService } from '../file/file.service';
 import { GenderService } from '../gender/gender.service';
 import { AuthGuard } from '../guards/auth.guard';
@@ -25,7 +26,7 @@ import { JwtGuard } from '../guards/jwt.guard';
 import { MembershipService } from '../membership/membership.service';
 import { RoleService } from '../role/role.service';
 import { Privileges } from '../utilities/costants';
-import { NewUserDTO, UpdatePasswordDTO } from './user.dto';
+import { UserDTO, UpdatePasswordDTO, UpdateUser } from './user.dto';
 import { UserService } from './user.service';
 
 @ApiTags('Users')
@@ -58,7 +59,7 @@ export class UserController {
 
   @HttpCode(201)
   @Post('')
-  async create(@Body() newUserDTO: NewUserDTO) {
+  async create(@Body() newUserDTO: UserDTO) {
     const state = await this.membershipService.findStateByID(
       newUserDTO.membership.state,
     );
@@ -117,6 +118,46 @@ export class UserController {
     if (!response.success)
       throw new InternalServerErrorException(response.message);
     return { message: response.message };
+  }
+
+  @HttpCode(200)
+  @Patch('/:id')
+  async updateUser(@Param('id') id: number, @Body() user: UpdateUser) {
+    const userResponse = await this.userService.findById(id);
+    if (!userResponse.success)
+      return new BadRequestException(userResponse.message);
+    const roleResponse = await this.roleService.findByID(user.roleId);
+    if (!roleResponse.role)
+      return new BadRequestException(roleResponse.message);
+    const genderReponse = await this.genderService.findById(user.genderId);
+    if (!genderReponse.gender)
+      return new BadRequestException(genderReponse.message);
+    try {
+      const response = await this.userService.updateUserBasicInfo(
+        userResponse.user,
+        genderReponse.gender,
+        roleResponse.role,
+        user,
+      );
+      return response.message;
+    } catch (error) {
+      throw new InternalServerErrorException((error as Error).message);
+    }
+  }
+
+  @HttpCode(200)
+  @Put('file/:id')
+  async updateUserFile(@Param('id') id: number, @Body() file: FileDTO) {
+    const fileResponse = await this.fileService.findById(id);
+    if (!fileResponse.success)
+      return new BadRequestException(fileResponse.message);
+    const fileUpdatedResponse = await this.fileService.updateFile(
+      fileResponse.file,
+      file,
+    );
+    if (!fileUpdatedResponse.success)
+      return new InternalServerErrorException(fileUpdatedResponse.message);
+    return { msg: fileUpdatedResponse.message };
   }
 
   @HttpCode(200)

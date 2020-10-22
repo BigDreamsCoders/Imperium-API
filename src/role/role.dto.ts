@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { DocumentationString } from '../utilities/costants';
 
@@ -9,22 +10,23 @@ export class RoleDTO {
   @IsNotEmpty()
   @IsString()
   name: string;
+
+  @IsNotEmpty()
+  @IsNumber({}, { each: true })
+  privileges: number[];
 }
 
 export class RoleUpdateDTO {
-  @ApiProperty({
-    description: 'Role Id',
-  })
-  @IsNotEmpty()
-  @IsNumber()
-  id: number;
-
   @ApiProperty({
     description: 'New role name',
   })
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  @IsNotEmpty()
+  @IsNumber({}, { each: true })
+  privileges: number[];
 }
 
 export class RoleDeleteDTO {

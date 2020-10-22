@@ -1,5 +1,4 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
-import { RolePrivilegeService } from '../rolePrivilege/role-privilege.service';
 import { UserService } from '../user/user.service';
 
 @Injectable()
