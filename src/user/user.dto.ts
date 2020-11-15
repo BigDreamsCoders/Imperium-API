@@ -125,3 +125,12 @@ export class UpdateUser {
   @IsNotEmpty()
   roleId: number;
 }
+
+export class ResetPasswotdDTO {
+  @ApiProperty({
+    description: 'User email',
+  })
+  @IsString()
+  @IsNotEmpty()
+  email: string;
+}

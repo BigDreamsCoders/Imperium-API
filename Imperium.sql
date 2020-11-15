@@ -1,4 +1,28 @@
+--
+-- PostgreSQL database dump
+--
 
+-- Dumped from database version 13.0 (Debian 13.0-1.pgdg100+1)
+-- Dumped by pg_dump version 13.0 (Debian 13.0-1.pgdg100+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: building_entrance; Type: TABLE; Schema: public; Owner: petrlr14
+--
 
 CREATE TABLE public.building_entrance (
     id integer NOT NULL,
@@ -7,12 +31,8 @@ CREATE TABLE public.building_entrance (
     building_action_id integer
 );
 
-
-
-
 --
--- TOC entry 231 (class 1259 OID 24803)
-
+-- Name: building_entrance_action; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.building_entrance_action (
@@ -21,12 +41,8 @@ CREATE TABLE public.building_entrance_action (
     created_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
-
-
-
 --
--- TOC entry 230 (class 1259 OID 24801)
-
+-- Name: building_entrance_action_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.building_entrance_action_id_seq
@@ -37,21 +53,15 @@ CREATE SEQUENCE public.building_entrance_action_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3240 (class 0 OID 0)
--- Dependencies: 230
-
+-- Name: building_entrance_action_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.building_entrance_action_id_seq OWNED BY public.building_entrance_action.id;
 
 
 --
--- TOC entry 232 (class 1259 OID 24813)
-
+-- Name: building_entrance_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.building_entrance_id_seq
@@ -62,21 +72,15 @@ CREATE SEQUENCE public.building_entrance_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3241 (class 0 OID 0)
--- Dependencies: 232
-
+-- Name: building_entrance_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.building_entrance_id_seq OWNED BY public.building_entrance.id;
 
 
 --
--- TOC entry 217 (class 1259 OID 24712)
-
+-- Name: gender; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.gender (
@@ -86,12 +90,8 @@ CREATE TABLE public.gender (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
-
-
-
 --
--- TOC entry 216 (class 1259 OID 24710)
-
+-- Name: gender_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.gender_id_seq
@@ -102,21 +102,15 @@ CREATE SEQUENCE public.gender_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3242 (class 0 OID 0)
--- Dependencies: 216
-
+-- Name: gender_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.gender_id_seq OWNED BY public.gender.id;
 
 
 --
--- TOC entry 201 (class 1259 OID 24614)
-
+-- Name: medic_file; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.medic_file (
@@ -127,12 +121,8 @@ CREATE TABLE public.medic_file (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
-
-
-
 --
--- TOC entry 200 (class 1259 OID 24612)
-
+-- Name: medic_file_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.medic_file_id_seq
@@ -143,21 +133,15 @@ CREATE SEQUENCE public.medic_file_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3243 (class 0 OID 0)
--- Dependencies: 200
-
+-- Name: medic_file_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.medic_file_id_seq OWNED BY public.medic_file.id;
 
 
 --
--- TOC entry 207 (class 1259 OID 24650)
-
+-- Name: membership; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.membership (
@@ -168,12 +152,8 @@ CREATE TABLE public.membership (
     membership_state integer
 );
 
-
-
-
 --
--- TOC entry 206 (class 1259 OID 24648)
-
+-- Name: membership_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.membership_id_seq
@@ -184,21 +164,15 @@ CREATE SEQUENCE public.membership_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3244 (class 0 OID 0)
--- Dependencies: 206
-
+-- Name: membership_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.membership_id_seq OWNED BY public.membership.id;
 
 
 --
--- TOC entry 205 (class 1259 OID 24637)
-
+-- Name: membership_state; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.membership_state (
@@ -208,12 +182,8 @@ CREATE TABLE public.membership_state (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
-
-
-
 --
--- TOC entry 204 (class 1259 OID 24635)
-
+-- Name: membership_state_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.membership_state_id_seq
@@ -224,21 +194,15 @@ CREATE SEQUENCE public.membership_state_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3245 (class 0 OID 0)
--- Dependencies: 204
-
+-- Name: membership_state_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.membership_state_id_seq OWNED BY public.membership_state.id;
 
 
 --
--- TOC entry 203 (class 1259 OID 24624)
-
+-- Name: membership_type; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.membership_type (
@@ -249,12 +213,8 @@ CREATE TABLE public.membership_type (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
-
-
-
 --
--- TOC entry 202 (class 1259 OID 24622)
-
+-- Name: membership_type_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.membership_type_id_seq
@@ -265,21 +225,15 @@ CREATE SEQUENCE public.membership_type_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3246 (class 0 OID 0)
--- Dependencies: 202
-
+-- Name: membership_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.membership_type_id_seq OWNED BY public.membership_type.id;
 
 
 --
--- TOC entry 209 (class 1259 OID 24660)
-
+-- Name: privilege; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.privilege (
@@ -292,12 +246,8 @@ CREATE TABLE public.privilege (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
-
-
-
 --
--- TOC entry 208 (class 1259 OID 24658)
-
+-- Name: privilege_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.privilege_id_seq
@@ -308,21 +258,15 @@ CREATE SEQUENCE public.privilege_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3247 (class 0 OID 0)
--- Dependencies: 208
-
+-- Name: privilege_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.privilege_id_seq OWNED BY public.privilege.id;
 
 
 --
--- TOC entry 211 (class 1259 OID 24673)
-
+-- Name: role; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.role (
@@ -332,12 +276,8 @@ CREATE TABLE public.role (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
-
-
-
 --
--- TOC entry 210 (class 1259 OID 24671)
-
+-- Name: role_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.role_id_seq
@@ -348,21 +288,15 @@ CREATE SEQUENCE public.role_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3248 (class 0 OID 0)
--- Dependencies: 210
-
+-- Name: role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.role_id_seq OWNED BY public.role.id;
 
 
 --
--- TOC entry 234 (class 1259 OID 24822)
-
+-- Name: role_privilege_privilege; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.role_privilege_privilege (
@@ -370,30 +304,120 @@ CREATE TABLE public.role_privilege_privilege (
     "privilegeId" integer NOT NULL
 );
 
-
-
-
 --
--- TOC entry 215 (class 1259 OID 24699)
-
+-- Name: routine; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.routine (
     id integer NOT NULL,
     name character varying NOT NULL,
-    suggested_time integer NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
-    creator_id integer,
-    routine_type_id integer
+    creator_id integer
 );
 
+--
+-- Name: routine_data; Type: TABLE; Schema: public; Owner: petrlr14
+--
 
+CREATE TABLE public.routine_data (
+    id integer NOT NULL,
+    "time" character varying,
+    calories character varying,
+    repetition integer,
+    sets integer,
+    workstation_id integer,
+    data_type_id integer
+);
+
+--
+-- Name: routine_data_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
+--
+
+CREATE SEQUENCE public.routine_data_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+--
+-- Name: routine_data_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
+--
+
+ALTER SEQUENCE public.routine_data_id_seq OWNED BY public.routine_data.id;
 
 
 --
--- TOC entry 214 (class 1259 OID 24697)
+-- Name: routine_data_type; Type: TABLE; Schema: public; Owner: petrlr14
+--
 
+CREATE TABLE public.routine_data_type (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+--
+-- Name: routine_data_type_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
+--
+
+CREATE SEQUENCE public.routine_data_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+--
+-- Name: routine_data_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
+--
+
+ALTER SEQUENCE public.routine_data_type_id_seq OWNED BY public.routine_data_type.id;
+
+
+--
+-- Name: routine_history; Type: TABLE; Schema: public; Owner: petrlr14
+--
+
+CREATE TABLE public.routine_history (
+    id integer NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    routine_id integer,
+    user_id integer
+);
+
+--
+-- Name: routine_history_data_routine_data; Type: TABLE; Schema: public; Owner: petrlr14
+--
+
+CREATE TABLE public.routine_history_data_routine_data (
+    "routineHistoryId" integer NOT NULL,
+    "routineDataId" integer NOT NULL
+);
+
+--
+-- Name: routine_history_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
+--
+
+CREATE SEQUENCE public.routine_history_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+--
+-- Name: routine_history_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
+--
+
+ALTER SEQUENCE public.routine_history_id_seq OWNED BY public.routine_history.id;
+
+
+--
+-- Name: routine_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.routine_id_seq
@@ -404,21 +428,15 @@ CREATE SEQUENCE public.routine_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3249 (class 0 OID 0)
--- Dependencies: 214
-
+-- Name: routine_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.routine_id_seq OWNED BY public.routine.id;
 
 
 --
--- TOC entry 213 (class 1259 OID 24686)
-
+-- Name: routine_type; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.routine_type (
@@ -428,12 +446,8 @@ CREATE TABLE public.routine_type (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
-
-
-
 --
--- TOC entry 212 (class 1259 OID 24684)
-
+-- Name: routine_type_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.routine_type_id_seq
@@ -444,21 +458,24 @@ CREATE SEQUENCE public.routine_type_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3250 (class 0 OID 0)
--- Dependencies: 212
-
+-- Name: routine_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.routine_type_id_seq OWNED BY public.routine_type.id;
 
 
 --
--- TOC entry 219 (class 1259 OID 24725)
+-- Name: routine_workstation_workstation; Type: TABLE; Schema: public; Owner: petrlr14
+--
 
+CREATE TABLE public.routine_workstation_workstation (
+    "routineId" integer NOT NULL,
+    "workstationId" integer NOT NULL
+);
+
+--
+-- Name: user; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public."user" (
@@ -476,12 +493,8 @@ CREATE TABLE public."user" (
     file_id integer
 );
 
-
-
-
 --
--- TOC entry 218 (class 1259 OID 24723)
-
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.user_id_seq
@@ -492,39 +505,38 @@ CREATE SEQUENCE public.user_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3251 (class 0 OID 0)
--- Dependencies: 218
-
+-- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
 
 
 --
--- TOC entry 221 (class 1259 OID 24742)
+-- Name: user_saved_routines_routine; Type: TABLE; Schema: public; Owner: petrlr14
+--
 
+CREATE TABLE public.user_saved_routines_routine (
+    "userId" integer NOT NULL,
+    "routineId" integer NOT NULL
+);
+
+--
+-- Name: workstation; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.workstation (
     id integer NOT NULL,
-    name character varying NOT NULL,
-    img character varying NOT NULL,
+    code character varying NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     workstation_type_id integer,
-    workstation_state_id integer
+    workstation_state_id integer,
+    workstation_category_id integer
 );
 
-
-
-
 --
--- TOC entry 223 (class 1259 OID 24755)
-
+-- Name: workstation_action; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.workstation_action (
@@ -534,12 +546,8 @@ CREATE TABLE public.workstation_action (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
-
-
-
 --
--- TOC entry 222 (class 1259 OID 24753)
-
+-- Name: workstation_action_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.workstation_action_id_seq
@@ -550,21 +558,46 @@ CREATE SEQUENCE public.workstation_action_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3252 (class 0 OID 0)
--- Dependencies: 222
-
+-- Name: workstation_action_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.workstation_action_id_seq OWNED BY public.workstation_action.id;
 
 
 --
--- TOC entry 220 (class 1259 OID 24740)
+-- Name: workstation_category; Type: TABLE; Schema: public; Owner: petrlr14
+--
 
+CREATE TABLE public.workstation_category (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    img character varying NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
+);
+
+--
+-- Name: workstation_category_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
+--
+
+CREATE SEQUENCE public.workstation_category_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+--
+-- Name: workstation_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
+--
+
+ALTER SEQUENCE public.workstation_category_id_seq OWNED BY public.workstation_category.id;
+
+
+--
+-- Name: workstation_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.workstation_id_seq
@@ -575,21 +608,15 @@ CREATE SEQUENCE public.workstation_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3253 (class 0 OID 0)
--- Dependencies: 220
-
+-- Name: workstation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.workstation_id_seq OWNED BY public.workstation.id;
 
 
 --
--- TOC entry 227 (class 1259 OID 24777)
-
+-- Name: workstation_state; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.workstation_state (
@@ -599,12 +626,8 @@ CREATE TABLE public.workstation_state (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
-
-
-
 --
--- TOC entry 226 (class 1259 OID 24775)
-
+-- Name: workstation_state_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.workstation_state_id_seq
@@ -615,21 +638,15 @@ CREATE SEQUENCE public.workstation_state_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3254 (class 0 OID 0)
--- Dependencies: 226
-
+-- Name: workstation_state_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.workstation_state_id_seq OWNED BY public.workstation_state.id;
 
 
 --
--- TOC entry 229 (class 1259 OID 24790)
-
+-- Name: workstation_type; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.workstation_type (
@@ -639,12 +656,8 @@ CREATE TABLE public.workstation_type (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
-
-
-
 --
--- TOC entry 228 (class 1259 OID 24788)
-
+-- Name: workstation_type_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.workstation_type_id_seq
@@ -655,21 +668,15 @@ CREATE SEQUENCE public.workstation_type_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3255 (class 0 OID 0)
--- Dependencies: 228
-
+-- Name: workstation_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.workstation_type_id_seq OWNED BY public.workstation_type.id;
 
 
 --
--- TOC entry 225 (class 1259 OID 24768)
-
+-- Name: workstation_use; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
 CREATE TABLE public.workstation_use (
@@ -680,12 +687,8 @@ CREATE TABLE public.workstation_use (
     workstation_action_id integer
 );
 
-
-
-
 --
--- TOC entry 224 (class 1259 OID 24766)
-
+-- Name: workstation_use_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
 --
 
 CREATE SEQUENCE public.workstation_use_id_seq
@@ -696,490 +699,309 @@ CREATE SEQUENCE public.workstation_use_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-
-
 --
--- TOC entry 3256 (class 0 OID 0)
--- Dependencies: 224
-
+-- Name: workstation_use_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
 --
 
 ALTER SEQUENCE public.workstation_use_id_seq OWNED BY public.workstation_use.id;
 
 
 --
--- TOC entry 3009 (class 2604 OID 24818)
-
+-- Name: building_entrance id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.building_entrance ALTER COLUMN id SET DEFAULT nextval('public.building_entrance_id_seq'::regclass);
 
 
 --
--- TOC entry 3007 (class 2604 OID 24806)
-
+-- Name: building_entrance_action id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.building_entrance_action ALTER COLUMN id SET DEFAULT nextval('public.building_entrance_action_id_seq'::regclass);
 
 
 --
--- TOC entry 2987 (class 2604 OID 24715)
-
+-- Name: gender id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.gender ALTER COLUMN id SET DEFAULT nextval('public.gender_id_seq'::regclass);
 
 
 --
--- TOC entry 2963 (class 2604 OID 24617)
-
+-- Name: medic_file id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.medic_file ALTER COLUMN id SET DEFAULT nextval('public.medic_file_id_seq'::regclass);
 
 
 --
--- TOC entry 2972 (class 2604 OID 24653)
-
+-- Name: membership id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.membership ALTER COLUMN id SET DEFAULT nextval('public.membership_id_seq'::regclass);
 
 
 --
--- TOC entry 2969 (class 2604 OID 24640)
-
+-- Name: membership_state id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.membership_state ALTER COLUMN id SET DEFAULT nextval('public.membership_state_id_seq'::regclass);
 
 
 --
--- TOC entry 2966 (class 2604 OID 24627)
-
+-- Name: membership_type id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.membership_type ALTER COLUMN id SET DEFAULT nextval('public.membership_type_id_seq'::regclass);
 
 
 --
--- TOC entry 2975 (class 2604 OID 24663)
-
+-- Name: privilege id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.privilege ALTER COLUMN id SET DEFAULT nextval('public.privilege_id_seq'::regclass);
 
 
 --
--- TOC entry 2978 (class 2604 OID 24676)
-
+-- Name: role id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.role ALTER COLUMN id SET DEFAULT nextval('public.role_id_seq'::regclass);
 
 
 --
--- TOC entry 2984 (class 2604 OID 24702)
-
+-- Name: routine id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.routine ALTER COLUMN id SET DEFAULT nextval('public.routine_id_seq'::regclass);
 
 
 --
--- TOC entry 2981 (class 2604 OID 24689)
+-- Name: routine_data id; Type: DEFAULT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.routine_data ALTER COLUMN id SET DEFAULT nextval('public.routine_data_id_seq'::regclass);
+
+
+--
+-- Name: routine_data_type id; Type: DEFAULT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_data_type ALTER COLUMN id SET DEFAULT nextval('public.routine_data_type_id_seq'::regclass);
+
+
+--
+-- Name: routine_history id; Type: DEFAULT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_history ALTER COLUMN id SET DEFAULT nextval('public.routine_history_id_seq'::regclass);
+
+
+--
+-- Name: routine_type id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.routine_type ALTER COLUMN id SET DEFAULT nextval('public.routine_type_id_seq'::regclass);
 
 
 --
--- TOC entry 2990 (class 2604 OID 24728)
-
+-- Name: user id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
 
 
 --
--- TOC entry 2993 (class 2604 OID 24745)
-
+-- Name: workstation id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation ALTER COLUMN id SET DEFAULT nextval('public.workstation_id_seq'::regclass);
 
 
 --
--- TOC entry 2996 (class 2604 OID 24758)
-
+-- Name: workstation_action id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation_action ALTER COLUMN id SET DEFAULT nextval('public.workstation_action_id_seq'::regclass);
 
 
 --
--- TOC entry 3001 (class 2604 OID 24780)
+-- Name: workstation_category id; Type: DEFAULT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.workstation_category ALTER COLUMN id SET DEFAULT nextval('public.workstation_category_id_seq'::regclass);
+
+
+--
+-- Name: workstation_state id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation_state ALTER COLUMN id SET DEFAULT nextval('public.workstation_state_id_seq'::regclass);
 
 
 --
--- TOC entry 3004 (class 2604 OID 24793)
-
+-- Name: workstation_type id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation_type ALTER COLUMN id SET DEFAULT nextval('public.workstation_type_id_seq'::regclass);
 
 
 --
--- TOC entry 2999 (class 2604 OID 24771)
-
+-- Name: workstation_use id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation_use ALTER COLUMN id SET DEFAULT nextval('public.workstation_use_id_seq'::regclass);
 
 
 --
--- TOC entry 3233 (class 0 OID 24815)
--- Dependencies: 233
-
---
-
-
-
-
-
---
--- TOC entry 3231 (class 0 OID 24803)
--- Dependencies: 231
-
---
-
-
-
-
-
---
--- TOC entry 3217 (class 0 OID 24712)
--- Dependencies: 217
-
---
-
-
-
-
-
---
--- TOC entry 3201 (class 0 OID 24614)
--- Dependencies: 201
-
---
-
-
-
-
-
---
--- TOC entry 3207 (class 0 OID 24650)
--- Dependencies: 207
-
---
-
-
-
-
-
---
--- TOC entry 3205 (class 0 OID 24637)
--- Dependencies: 205
-
---
-
-
-
-
-
---
--- TOC entry 3203 (class 0 OID 24624)
--- Dependencies: 203
-
---
-
-
-
-
-
---
--- TOC entry 3209 (class 0 OID 24660)
--- Dependencies: 209
-
---
-
-
-
-
-
---
--- TOC entry 3211 (class 0 OID 24673)
--- Dependencies: 211
-
---
-
-
-
-
-
---
--- TOC entry 3234 (class 0 OID 24822)
--- Dependencies: 234
-
---
-
-
-
-
-
---
--- TOC entry 3215 (class 0 OID 24699)
--- Dependencies: 215
-
---
-
-
-
-
-
---
--- TOC entry 3213 (class 0 OID 24686)
--- Dependencies: 213
-
---
-
-
-
-
-
---
--- TOC entry 3219 (class 0 OID 24725)
--- Dependencies: 219
-
---
-
-
-
-
-
---
--- TOC entry 3221 (class 0 OID 24742)
--- Dependencies: 221
-
---
-
-
-
-
-
---
--- TOC entry 3223 (class 0 OID 24755)
--- Dependencies: 223
-
---
-
-
-
-
-
---
--- TOC entry 3227 (class 0 OID 24777)
--- Dependencies: 227
-
---
-
-
-
-
-
---
--- TOC entry 3229 (class 0 OID 24790)
--- Dependencies: 229
-
---
-
-
-
-
-
---
--- TOC entry 3225 (class 0 OID 24768)
--- Dependencies: 225
-
---
-
-
-
-
-
---
--- TOC entry 3257 (class 0 OID 0)
--- Dependencies: 230
-
+-- Name: building_entrance_action_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.building_entrance_action_id_seq', 1, false);
 
 
 --
--- TOC entry 3258 (class 0 OID 0)
--- Dependencies: 232
-
+-- Name: building_entrance_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.building_entrance_id_seq', 1, false);
 
 
 --
--- TOC entry 3259 (class 0 OID 0)
--- Dependencies: 216
-
+-- Name: gender_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.gender_id_seq', 1, false);
 
 
 --
--- TOC entry 3260 (class 0 OID 0)
--- Dependencies: 200
-
+-- Name: medic_file_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.medic_file_id_seq', 1, false);
 
 
 --
--- TOC entry 3261 (class 0 OID 0)
--- Dependencies: 206
-
+-- Name: membership_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.membership_id_seq', 1, false);
 
 
 --
--- TOC entry 3262 (class 0 OID 0)
--- Dependencies: 204
-
+-- Name: membership_state_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.membership_state_id_seq', 1, false);
 
 
 --
--- TOC entry 3263 (class 0 OID 0)
--- Dependencies: 202
-
+-- Name: membership_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.membership_type_id_seq', 1, false);
 
 
 --
--- TOC entry 3264 (class 0 OID 0)
--- Dependencies: 208
-
+-- Name: privilege_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.privilege_id_seq', 1, false);
 
 
 --
--- TOC entry 3265 (class 0 OID 0)
--- Dependencies: 210
-
+-- Name: role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.role_id_seq', 1, false);
 
 
 --
--- TOC entry 3266 (class 0 OID 0)
--- Dependencies: 214
+-- Name: routine_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
+--
 
+SELECT pg_catalog.setval('public.routine_data_id_seq', 1, false);
+
+
+--
+-- Name: routine_data_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
+--
+
+SELECT pg_catalog.setval('public.routine_data_type_id_seq', 1, false);
+
+
+--
+-- Name: routine_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
+--
+
+SELECT pg_catalog.setval('public.routine_history_id_seq', 1, false);
+
+
+--
+-- Name: routine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.routine_id_seq', 1, false);
 
 
 --
--- TOC entry 3267 (class 0 OID 0)
--- Dependencies: 212
-
+-- Name: routine_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.routine_type_id_seq', 1, false);
 
 
 --
--- TOC entry 3268 (class 0 OID 0)
--- Dependencies: 218
-
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.user_id_seq', 1, false);
 
 
 --
--- TOC entry 3269 (class 0 OID 0)
--- Dependencies: 222
-
+-- Name: workstation_action_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.workstation_action_id_seq', 1, false);
 
 
 --
--- TOC entry 3270 (class 0 OID 0)
--- Dependencies: 220
+-- Name: workstation_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
+--
 
+SELECT pg_catalog.setval('public.workstation_category_id_seq', 1, false);
+
+
+--
+-- Name: workstation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.workstation_id_seq', 1, false);
 
 
 --
--- TOC entry 3271 (class 0 OID 0)
--- Dependencies: 226
-
+-- Name: workstation_state_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.workstation_state_id_seq', 1, false);
 
 
 --
--- TOC entry 3272 (class 0 OID 0)
--- Dependencies: 228
-
+-- Name: workstation_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.workstation_type_id_seq', 1, false);
 
 
 --
--- TOC entry 3273 (class 0 OID 0)
--- Dependencies: 224
-
+-- Name: workstation_use_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.workstation_use_id_seq', 1, false);
 
 
 --
--- TOC entry 3038 (class 2606 OID 24765)
-
+-- Name: workstation_action PK_0ec6866df5bcc01b1410f7cc0ff; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation_action
@@ -1187,8 +1009,7 @@ ALTER TABLE ONLY public.workstation_action
 
 
 --
--- TOC entry 3036 (class 2606 OID 24752)
-
+-- Name: workstation PK_305422595c2601e928ff7520516; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation
@@ -1196,8 +1017,15 @@ ALTER TABLE ONLY public.workstation
 
 
 --
--- TOC entry 3014 (class 2606 OID 24634)
+-- Name: routine_data PK_4b67981d16fe91bb0d9bcf8b0f0; Type: CONSTRAINT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.routine_data
+    ADD CONSTRAINT "PK_4b67981d16fe91bb0d9bcf8b0f0" PRIMARY KEY (id);
+
+
+--
+-- Name: membership_type PK_5c09e5b961e10506b61cf12c9f9; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.membership_type
@@ -1205,8 +1033,7 @@ ALTER TABLE ONLY public.membership_type
 
 
 --
--- TOC entry 3024 (class 2606 OID 24696)
-
+-- Name: routine_type PK_5e11ae73d6afde6e551b400203c; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.routine_type
@@ -1214,8 +1041,7 @@ ALTER TABLE ONLY public.routine_type
 
 
 --
--- TOC entry 3026 (class 2606 OID 24709)
-
+-- Name: routine PK_5f1178fd54059b2f9479d6141ec; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.routine
@@ -1223,8 +1049,15 @@ ALTER TABLE ONLY public.routine
 
 
 --
--- TOC entry 3016 (class 2606 OID 24647)
+-- Name: user_saved_routines_routine PK_69fbcab74bfb6457c800d8d30fa; Type: CONSTRAINT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.user_saved_routines_routine
+    ADD CONSTRAINT "PK_69fbcab74bfb6457c800d8d30fa" PRIMARY KEY ("userId", "routineId");
+
+
+--
+-- Name: membership_state PK_77a78f1c79575e10cefcbfa3b27; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.membership_state
@@ -1232,8 +1065,7 @@ ALTER TABLE ONLY public.membership_state
 
 
 --
--- TOC entry 3018 (class 2606 OID 24657)
-
+-- Name: membership PK_83c1afebef3059472e7c37e8de8; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.membership
@@ -1241,8 +1073,7 @@ ALTER TABLE ONLY public.membership
 
 
 --
--- TOC entry 3052 (class 2606 OID 24826)
-
+-- Name: role_privilege_privilege PK_93a4c74b153fc324b84a1f7cf19; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.role_privilege_privilege
@@ -1250,8 +1081,7 @@ ALTER TABLE ONLY public.role_privilege_privilege
 
 
 --
--- TOC entry 3028 (class 2606 OID 24722)
-
+-- Name: gender PK_98a711129bc073e6312d08364e8; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.gender
@@ -1259,8 +1089,15 @@ ALTER TABLE ONLY public.gender
 
 
 --
--- TOC entry 3044 (class 2606 OID 24800)
+-- Name: workstation_category PK_9d16d098fdc64e1bf10730d5951; Type: CONSTRAINT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.workstation_category
+    ADD CONSTRAINT "PK_9d16d098fdc64e1bf10730d5951" PRIMARY KEY (id);
+
+
+--
+-- Name: workstation_type PK_a2793fc7bb23c94ebca4c7c96c3; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation_type
@@ -1268,8 +1105,7 @@ ALTER TABLE ONLY public.workstation_type
 
 
 --
--- TOC entry 3048 (class 2606 OID 24821)
-
+-- Name: building_entrance PK_b0acab4eb0428ddcc69408073da; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.building_entrance
@@ -1277,8 +1113,7 @@ ALTER TABLE ONLY public.building_entrance
 
 
 --
--- TOC entry 3020 (class 2606 OID 24670)
-
+-- Name: privilege PK_b1691196ff9c996998bab2e406e; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.privilege
@@ -1286,8 +1121,7 @@ ALTER TABLE ONLY public.privilege
 
 
 --
--- TOC entry 3022 (class 2606 OID 24683)
-
+-- Name: role PK_b36bcfe02fc8de3c57a8b2391c2; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.role
@@ -1295,8 +1129,23 @@ ALTER TABLE ONLY public.role
 
 
 --
--- TOC entry 3046 (class 2606 OID 24812)
+-- Name: routine_history_data_routine_data PK_bdbfe190665918fb67cc20e51ca; Type: CONSTRAINT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.routine_history_data_routine_data
+    ADD CONSTRAINT "PK_bdbfe190665918fb67cc20e51ca" PRIMARY KEY ("routineHistoryId", "routineDataId");
+
+
+--
+-- Name: routine_history PK_c106e063288c9686f7bd2363ccd; Type: CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_history
+    ADD CONSTRAINT "PK_c106e063288c9686f7bd2363ccd" PRIMARY KEY (id);
+
+
+--
+-- Name: building_entrance_action PK_c1408fabd203a3d9cfb4e84722a; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.building_entrance_action
@@ -1304,8 +1153,7 @@ ALTER TABLE ONLY public.building_entrance_action
 
 
 --
--- TOC entry 3040 (class 2606 OID 24774)
-
+-- Name: workstation_use PK_c2fcf0fdb8c3069d9ab8b7693f9; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation_use
@@ -1313,8 +1161,7 @@ ALTER TABLE ONLY public.workstation_use
 
 
 --
--- TOC entry 3030 (class 2606 OID 24735)
-
+-- Name: user PK_cace4a159ff9f2512dd42373760; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public."user"
@@ -1322,8 +1169,23 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3012 (class 2606 OID 24621)
+-- Name: routine_data_type PK_d33c356bc2b4112fc0a51052d3d; Type: CONSTRAINT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.routine_data_type
+    ADD CONSTRAINT "PK_d33c356bc2b4112fc0a51052d3d" PRIMARY KEY (id);
+
+
+--
+-- Name: routine_workstation_workstation PK_eee1bbd1214ffac038978a47215; Type: CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_workstation_workstation
+    ADD CONSTRAINT "PK_eee1bbd1214ffac038978a47215" PRIMARY KEY ("routineId", "workstationId");
+
+
+--
+-- Name: medic_file PK_f6b39c145a6df7415483b18d6ad; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.medic_file
@@ -1331,8 +1193,7 @@ ALTER TABLE ONLY public.medic_file
 
 
 --
--- TOC entry 3042 (class 2606 OID 24787)
-
+-- Name: workstation_state PK_f745ff43811fc1c334e18229b85; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation_state
@@ -1340,8 +1201,7 @@ ALTER TABLE ONLY public.workstation_state
 
 
 --
--- TOC entry 3032 (class 2606 OID 24737)
-
+-- Name: user REL_79d3d7350ae33ad6fe1743df86; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public."user"
@@ -1349,8 +1209,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3034 (class 2606 OID 24739)
-
+-- Name: user REL_c6771f226a8149de690641d11a; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public."user"
@@ -1358,24 +1217,71 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3049 (class 1259 OID 24828)
+-- Name: IDX_02cb33d054232c83af6dda7952; Type: INDEX; Schema: public; Owner: petrlr14
+--
 
+CREATE INDEX "IDX_02cb33d054232c83af6dda7952" ON public.routine_workstation_workstation USING btree ("routineId");
+
+
+--
+-- Name: IDX_0bd7464c26f4d699ec2a5bad08; Type: INDEX; Schema: public; Owner: petrlr14
 --
 
 CREATE INDEX "IDX_0bd7464c26f4d699ec2a5bad08" ON public.role_privilege_privilege USING btree ("privilegeId");
 
 
 --
--- TOC entry 3050 (class 1259 OID 24827)
+-- Name: IDX_1bb65f97814955e7f4b0b2370f; Type: INDEX; Schema: public; Owner: petrlr14
+--
 
+CREATE INDEX "IDX_1bb65f97814955e7f4b0b2370f" ON public.user_saved_routines_routine USING btree ("userId");
+
+
+--
+-- Name: IDX_344903258f2aedc0f2ef5a8da9; Type: INDEX; Schema: public; Owner: petrlr14
+--
+
+CREATE INDEX "IDX_344903258f2aedc0f2ef5a8da9" ON public.routine_history_data_routine_data USING btree ("routineHistoryId");
+
+
+--
+-- Name: IDX_945c21de79cf825677d737ae57; Type: INDEX; Schema: public; Owner: petrlr14
+--
+
+CREATE INDEX "IDX_945c21de79cf825677d737ae57" ON public.user_saved_routines_routine USING btree ("routineId");
+
+
+--
+-- Name: IDX_a0b7732af9502459207c8f1b22; Type: INDEX; Schema: public; Owner: petrlr14
 --
 
 CREATE INDEX "IDX_a0b7732af9502459207c8f1b22" ON public.role_privilege_privilege USING btree ("roleId");
 
 
 --
--- TOC entry 3061 (class 2606 OID 24869)
+-- Name: IDX_d2548aea7b0221d2e673d70475; Type: INDEX; Schema: public; Owner: petrlr14
+--
 
+CREATE INDEX "IDX_d2548aea7b0221d2e673d70475" ON public.routine_history_data_routine_data USING btree ("routineDataId");
+
+
+--
+-- Name: IDX_ff8552a2c966f9fb86fa3c5928; Type: INDEX; Schema: public; Owner: petrlr14
+--
+
+CREATE INDEX "IDX_ff8552a2c966f9fb86fa3c5928" ON public.routine_workstation_workstation USING btree ("workstationId");
+
+
+--
+-- Name: routine_workstation_workstation FK_02cb33d054232c83af6dda79528; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_workstation_workstation
+    ADD CONSTRAINT "FK_02cb33d054232c83af6dda79528" FOREIGN KEY ("routineId") REFERENCES public.routine(id) ON DELETE CASCADE;
+
+
+--
+-- Name: workstation FK_07d5351bd5da015bc2b6d68a3d9; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation
@@ -1383,8 +1289,7 @@ ALTER TABLE ONLY public.workstation
 
 
 --
--- TOC entry 3069 (class 2606 OID 24909)
-
+-- Name: role_privilege_privilege FK_0bd7464c26f4d699ec2a5bad08b; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.role_privilege_privilege
@@ -1392,8 +1297,31 @@ ALTER TABLE ONLY public.role_privilege_privilege
 
 
 --
--- TOC entry 3054 (class 2606 OID 24834)
+-- Name: routine_data FK_165ede9f71b2c4b1e7e33493f97; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.routine_data
+    ADD CONSTRAINT "FK_165ede9f71b2c4b1e7e33493f97" FOREIGN KEY (data_type_id) REFERENCES public.routine_data_type(id);
+
+
+--
+-- Name: user_saved_routines_routine FK_1bb65f97814955e7f4b0b2370fe; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.user_saved_routines_routine
+    ADD CONSTRAINT "FK_1bb65f97814955e7f4b0b2370fe" FOREIGN KEY ("userId") REFERENCES public."user"(id) ON DELETE CASCADE;
+
+
+--
+-- Name: routine_history_data_routine_data FK_344903258f2aedc0f2ef5a8da94; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_history_data_routine_data
+    ADD CONSTRAINT "FK_344903258f2aedc0f2ef5a8da94" FOREIGN KEY ("routineHistoryId") REFERENCES public.routine_history(id) ON DELETE CASCADE;
+
+
+--
+-- Name: membership FK_50b6087a77db98729ece6a1e00a; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.membership
@@ -1401,17 +1329,7 @@ ALTER TABLE ONLY public.membership
 
 
 --
--- TOC entry 3056 (class 2606 OID 24844)
-
---
-
-ALTER TABLE ONLY public.routine
-    ADD CONSTRAINT "FK_56436af2f3bf6581afbab887c7f" FOREIGN KEY (routine_type_id) REFERENCES public.routine_type(id);
-
-
---
--- TOC entry 3053 (class 2606 OID 24829)
-
+-- Name: membership FK_60a861b92af00057b041209058e; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.membership
@@ -1419,8 +1337,7 @@ ALTER TABLE ONLY public.membership
 
 
 --
--- TOC entry 3055 (class 2606 OID 24839)
-
+-- Name: routine FK_635351519843a97fa5f157bda0c; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.routine
@@ -1428,8 +1345,7 @@ ALTER TABLE ONLY public.routine
 
 
 --
--- TOC entry 3057 (class 2606 OID 24849)
-
+-- Name: user FK_6d4390ab1c0e8c86287d9f4c430; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public."user"
@@ -1437,8 +1353,15 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3058 (class 2606 OID 24854)
+-- Name: routine_data FK_74a7e0abff56e60869c21ea270b; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.routine_data
+    ADD CONSTRAINT "FK_74a7e0abff56e60869c21ea270b" FOREIGN KEY (workstation_id) REFERENCES public.workstation(id);
+
+
+--
+-- Name: user FK_79d3d7350ae33ad6fe1743df86c; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public."user"
@@ -1446,8 +1369,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3065 (class 2606 OID 24889)
-
+-- Name: workstation_use FK_811ea799f900a4ae20427405efd; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation_use
@@ -1455,8 +1377,7 @@ ALTER TABLE ONLY public.workstation_use
 
 
 --
--- TOC entry 3067 (class 2606 OID 24899)
-
+-- Name: building_entrance FK_8f4a501a8d286034c57d44508e0; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.building_entrance
@@ -1464,8 +1385,15 @@ ALTER TABLE ONLY public.building_entrance
 
 
 --
--- TOC entry 3068 (class 2606 OID 24904)
+-- Name: user_saved_routines_routine FK_945c21de79cf825677d737ae576; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.user_saved_routines_routine
+    ADD CONSTRAINT "FK_945c21de79cf825677d737ae576" FOREIGN KEY ("routineId") REFERENCES public.routine(id) ON DELETE CASCADE;
+
+
+--
+-- Name: role_privilege_privilege FK_a0b7732af9502459207c8f1b229; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.role_privilege_privilege
@@ -1473,8 +1401,7 @@ ALTER TABLE ONLY public.role_privilege_privilege
 
 
 --
--- TOC entry 3060 (class 2606 OID 24864)
-
+-- Name: user FK_c6771f226a8149de690641d11ae; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public."user"
@@ -1482,8 +1409,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3064 (class 2606 OID 24884)
-
+-- Name: workstation_use FK_cd3ef0f3991b077e354f9d1b064; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation_use
@@ -1491,8 +1417,23 @@ ALTER TABLE ONLY public.workstation_use
 
 
 --
--- TOC entry 3062 (class 2606 OID 24874)
+-- Name: routine_history FK_cdb527d837fe60e0581d85b7eb7; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.routine_history
+    ADD CONSTRAINT "FK_cdb527d837fe60e0581d85b7eb7" FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: routine_history_data_routine_data FK_d2548aea7b0221d2e673d704758; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_history_data_routine_data
+    ADD CONSTRAINT "FK_d2548aea7b0221d2e673d704758" FOREIGN KEY ("routineDataId") REFERENCES public.routine_data(id) ON DELETE CASCADE;
+
+
+--
+-- Name: workstation FK_d2c45fcbdcb7550b82f10f33c99; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation
@@ -1500,8 +1441,15 @@ ALTER TABLE ONLY public.workstation
 
 
 --
--- TOC entry 3063 (class 2606 OID 24879)
+-- Name: routine_history FK_d5430efc612f1810e3667f5ca6a; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.routine_history
+    ADD CONSTRAINT "FK_d5430efc612f1810e3667f5ca6a" FOREIGN KEY (routine_id) REFERENCES public.routine(id);
+
+
+--
+-- Name: workstation_use FK_d92c15e4ff67b45449a1868767d; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.workstation_use
@@ -1509,8 +1457,15 @@ ALTER TABLE ONLY public.workstation_use
 
 
 --
--- TOC entry 3066 (class 2606 OID 24894)
+-- Name: workstation FK_e8abbcfc41321b2b45ac1bb8f14; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
 
+ALTER TABLE ONLY public.workstation
+    ADD CONSTRAINT "FK_e8abbcfc41321b2b45ac1bb8f14" FOREIGN KEY (workstation_category_id) REFERENCES public.workstation_category(id);
+
+
+--
+-- Name: building_entrance FK_ee96cbf1d06827e6a1e0dfb8210; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public.building_entrance
@@ -1518,19 +1473,25 @@ ALTER TABLE ONLY public.building_entrance
 
 
 --
--- TOC entry 3059 (class 2606 OID 24859)
-
+-- Name: user FK_fb2e442d14add3cefbdf33c4561; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
 ALTER TABLE ONLY public."user"
     ADD CONSTRAINT "FK_fb2e442d14add3cefbdf33c4561" FOREIGN KEY (role_id) REFERENCES public.role(id);
 
 
--- Completed on 2020-10-22 00:08:02
+--
+-- Name: routine_workstation_workstation FK_ff8552a2c966f9fb86fa3c59289; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_workstation_workstation
+    ADD CONSTRAINT "FK_ff8552a2c966f9fb86fa3c59289" FOREIGN KEY ("workstationId") REFERENCES public.workstation(id) ON DELETE CASCADE;
+
 
 --
 -- PostgreSQL database dump complete
 --
+
 
 -- database pupulation
 INSERT INTO public.role (name) VALUES ('ADMIN'), ('USER');
@@ -1552,3 +1513,22 @@ INSERT INTO public.gender ("name") VALUES ('MASCULINO'), ('FEMENINO');
 INSERT INTO public.membership_state ("name") VALUES ('ACTIVA'), ('INACTIVA'), ('VENCIDA');
 
 INSERT INTO public.membership_type ("name", "price") VALUES ('BASICA', 11.99), ('PREMIUM', 29.99);
+<<<<<<< HEAD
+
+INSERT INTO public.workstation_type ("name") VALUES ('Cardio'), ('Strength');
+
+INSERT INTO public.workstation_state ("name") VALUES ('Available'), ('Unavailable'), ('Inactive');
+
+INSERT INTO public.workstation_category ("name", "img") 
+VALUES 
+    ('Elliptical', 'https://static.onecms.io/wp-content/uploads/sites/35/2020/08/03/elliptical-workout-for-beginners-promo.jpg'),
+    ('Rowing', 'https://s.yimg.com/ny/api/res/1.2/RmRlFH0e3DWTYixF0C6mhg--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/https://media.zenfs.com/en/runner_s_world_304/5dc95126d0aa1b16a90e6829d2be5cd5'),
+    ('Stationary bicycle', 'https://res.cloudinary.com/moves365/image/upload/c_fit,h_860,w_860/stationary-bike-benefits.jpg-435c7288-924d-4396-a1d1-318774cd5a39');
+
+INSERT INTO public.workstation ("code", "workstation_type_id", "workstation_state_id", "workstation_category_id")
+VALUES 
+    ('ELL01', 1, 1, 1), ('ELL02', 1, 1, 1), ('ELL03', 1, 1, 1), ('ELL03', 1, 1, 1), ('ELL05', 1, 1, 1),
+    ('ROWING01', 1, 1, 2), ('ROWING02', 1, 1, 2), ('ROWING03', 1, 1, 2), ('ROWING04', 1, 1, 2), ('ROWING05', 1, 1, 2),
+    ('BIKE01', 1, 1, 3), ('BIKE02', 1, 1, 3), ('BIKE03', 1, 1, 3), ('BIKE04', 1, 1, 3), ('BIKE05', 1, 1, 3);
+=======
+>>>>>>> f31337350c135c3ed763d63c8f96cbd8a42f5499

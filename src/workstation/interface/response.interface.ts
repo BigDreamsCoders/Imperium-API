@@ -1,11 +1,12 @@
 import {
   WorkstationAction,
+  WorkstationCategory,
   WorkstationState,
 } from '../../entities/workstation.catalog.entity';
 import { Workstation } from '../../entities/workstation.entity';
 
 export interface WorkstationResponse extends BasicResponse {
-  workstation: Workstation;
+  workstation: Workstation | Workstation[];
 }
 
 export interface WorkstationActionResponse extends BasicResponse {
@@ -14,6 +15,10 @@ export interface WorkstationActionResponse extends BasicResponse {
 
 export interface WorkstationStateResponse extends BasicResponse {
   workstationState: WorkstationState;
+}
+
+export interface WorkstationCategoryResponse extends BasicResponse {
+  workstationCategory: WorkstationCategory | WorkstationCategory[];
 }
 
 export interface PaginatedWorkstation {

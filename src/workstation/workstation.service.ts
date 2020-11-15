@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Connection, Repository } from 'typeorm';
+import { Connection, In, Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import {
   WorkstationAction,
+  WorkstationCategory,
   WorkstationState,
   WorkstationUse,
 } from '../entities/workstation.catalog.entity';
@@ -11,6 +12,7 @@ import { Workstation } from '../entities/workstation.entity';
 import {
   PaginatedWorkstation,
   WorkstationActionResponse,
+  WorkstationCategoryResponse,
   WorkstationResponse,
   WorkstationStateResponse,
 } from './interface/response.interface';
@@ -26,6 +28,10 @@ export class WorkstationService {
     private readonly workstationActionRepository: Repository<WorkstationAction>,
     @InjectRepository(WorkstationState)
     private readonly workstationStateRepository: Repository<WorkstationState>,
+    @InjectRepository(WorkstationCategory)
+    private readonly workstationCategoryRepository: Repository<
+      WorkstationCategory
+    >,
     private readonly connection: Connection,
   ) {}
 
@@ -96,7 +102,11 @@ export class WorkstationService {
       {
         take: limit,
         skip: page * limit,
-        relations: ['workstationType', 'workstationState'],
+        relations: [
+          'workstationType',
+          'workstationState',
+          'workstationCategory',
+        ],
         order: { id: 'ASC' },
       },
     );
@@ -104,6 +114,74 @@ export class WorkstationService {
       count,
       data: workstations,
     };
+  }
+
+  async findAllOccureance(id: number[]) {
+    const response: WorkstationResponse = {
+      message: 'Workstation not found',
+      success: false,
+      workstation: undefined,
+    };
+    try {
+      const workstation = await this.workstationRepository.findByIds(id);
+      if (!workstation || workstation.length !== id.length) throw Error();
+      response.message = 'Found';
+      response.success = true;
+      response.workstation = workstation;
+      return response;
+    } catch (e) {
+      console.log(e);
+      return response;
+    }
+  }
+
+  async findCategories(id: number): Promise<WorkstationCategoryResponse> {
+    const response: WorkstationCategoryResponse = {
+      message: 'Not found',
+      success: false,
+      workstationCategory: undefined,
+    };
+    try {
+      response.message = 'Found';
+      response.success = true;
+      if (id) {
+        const workstation = await this.workstationCategoryRepository.findOne(
+          id,
+        );
+        response.workstationCategory = workstation;
+        return response;
+      }
+      const workstations = await this.workstationCategoryRepository.find({
+        order: { id: 'ASC' },
+      });
+      response.workstationCategory = workstations;
+      return response;
+    } catch (e) {
+      response.message = 'Not found';
+      response.success = false;
+      return response;
+    }
+  }
+
+  async findByCategory(id: number) {
+    const response: WorkstationResponse = {
+      message: 'Not found',
+      success: false,
+      workstation: undefined,
+    };
+    try {
+      const workstation = await this.workstationRepository.find({
+        where: { workstationCategory: id },
+        order: { id: 'ASC' },
+      });
+      if (!workstation) throw Error();
+      response.message = 'Found';
+      response.success = true;
+      response.workstation = workstation;
+      return response;
+    } catch (e) {
+      return response;
+    }
   }
 
   async updateState(

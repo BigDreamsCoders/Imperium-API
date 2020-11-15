@@ -1,3 +1,4 @@
+import { RoutineModule } from './../routine/routine.module';
 import { WorkstationModule } from './../workstation/workstation.module';
 import { EmailModule } from './../email/email.module';
 import { FileModule } from './../file/file.module';
@@ -17,6 +18,7 @@ import { MyMailerModule } from '../mailer.module';
 
 @Module({
   imports: [
+    RoutineModule,
     WorkstationModule,
     EmailModule,
     FileModule,
