@@ -3,6 +3,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -13,7 +15,7 @@ import { hash } from '../utilities/functions';
 import { File } from './file.entity';
 import { Membership } from './membership.entity';
 import { Role } from './role.entity';
-import { Routine } from './routine.entity';
+import { Routine, RoutineHistory } from './routine.entity';
 
 @Entity()
 export class Gender {
@@ -51,26 +53,43 @@ export class User {
   birthday: Date;
 
   @ManyToOne(
-    type => Gender,
+    () => Gender,
     gender => gender.id,
   )
   @JoinColumn({ name: 'gender_id' })
   gender: Gender;
 
-  @OneToOne(type => Membership, { cascade: ['insert'] })
+  @OneToOne(() => Membership, { cascade: ['insert'] })
   @JoinColumn({ name: 'membership_id' })
   membership: Membership;
 
   @ManyToOne(
-    type => Role,
+    () => Role,
     role => role.id,
   )
   @JoinColumn({ name: 'role_id' })
   role: Role;
 
-  @OneToOne(type => File, { cascade: ['insert'] })
+  @OneToOne(() => File, { cascade: ['insert'] })
   @JoinColumn({ name: 'file_id' })
   file: File;
+
+  @OneToMany(
+    () => RoutineHistory,
+    history => history.user,
+    { cascade: ['insert'] },
+  )
+  history: RoutineHistory[];
+
+  @OneToMany(
+    () => Routine,
+    routine => routine.creator,
+  )
+  routines: Routine[];
+
+  @ManyToMany(() => Routine)
+  @JoinTable()
+  savedRoutines: Routine[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
@@ -84,10 +103,4 @@ export class User {
   comparePassword(password: string): boolean {
     return this.password === hash(password);
   }
-
-  @OneToMany(
-    type => Routine,
-    routine => routine.creator,
-  )
-  routines: Routine[];
 }

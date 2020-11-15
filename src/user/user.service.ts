@@ -4,6 +4,7 @@ import { Connection, Repository } from 'typeorm';
 import { File } from '../entities/file.entity';
 import { Membership } from '../entities/membership.entity';
 import { Role } from '../entities/role.entity';
+import { Routine } from '../entities/routine.entity';
 import { Gender, User } from '../entities/user.entity';
 import { generateTempPassword } from '../utilities/functions';
 import {
@@ -30,10 +31,6 @@ export class UserService {
   }
 
   async findByEmail(email: string, select = ''): Promise<User> {
-    this.userRepository.findOne({
-      where: { email },
-      relations: ['role'],
-    });
     const user = await this.connection
       .getRepository(User)
       .createQueryBuilder('user')
@@ -75,6 +72,11 @@ export class UserService {
           'membership',
           'membership.membershipState',
           'membership.membershipType',
+          'savedRoutines',
+          'savedRoutines.creator',
+          'routines',
+          'routines.creator',
+          'history',
           'role',
           'gender',
           'file',
@@ -223,6 +225,23 @@ export class UserService {
       throw Error(response.message);
     } finally {
       await queryRunner.release();
+    }
+  }
+
+  async saveRoutine(routine: Routine, user: User) {
+    const response: BasicResponse = {
+      message: 'Failed',
+      success: false,
+    };
+    try {
+      user.savedRoutines = [...user.savedRoutines, routine];
+      const userSaved = await this.userRepository.save(user);
+      if (!userSaved) throw Error();
+      response.message = 'Routines updated';
+      response.success = true;
+      return response;
+    } catch (e) {
+      return response;
     }
   }
 }

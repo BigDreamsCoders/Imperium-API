@@ -15,7 +15,6 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Request } from 'express';
 import { ACGuard, UseRoles } from 'nest-access-control';
 import { EmailService } from '../email/email.service';
 import { FileDTO } from '../file/file.dto';
@@ -26,7 +25,13 @@ import { JwtGuard } from '../guards/jwt.guard';
 import { MembershipService } from '../membership/membership.service';
 import { RoleService } from '../role/role.service';
 import { Privileges } from '../utilities/costants';
-import { UserDTO, UpdatePasswordDTO, UpdateUser } from './user.dto';
+import { generateTempPassword } from '../utilities/functions';
+import {
+  UserDTO,
+  UpdatePasswordDTO,
+  UpdateUser,
+  ResetPasswotdDTO,
+} from './user.dto';
 import { UserService } from './user.service';
 
 @ApiTags('Users')
@@ -53,8 +58,10 @@ export class UserController {
     action: Privileges.ACTION.R,
   })
   @Get('/me')
-  async getUser(@Req() req: Request) {
-    return req.user;
+  async getUser(@Req() req: any) {
+    const { id } = req.user;
+    const user = await this.userService.find(id, undefined, undefined);
+    return user;
   }
 
   @HttpCode(201)
@@ -118,6 +125,29 @@ export class UserController {
     if (!response.success)
       throw new InternalServerErrorException(response.message);
     return { message: response.message };
+  }
+
+  @HttpCode(200)
+  @Patch('/reset/password')
+  async restPassword(@Body() resetPassword: ResetPasswotdDTO) {
+    const user = await this.userService.findByEmail(resetPassword.email);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+    const tempPassword = generateTempPassword();
+    const userResponse = await this.userService.updatePassword(
+      user,
+      tempPassword,
+    );
+    if (!userResponse.success) {
+      throw new InternalServerErrorException();
+    }
+    const { email, firstName, lastName } = userResponse.user;
+    await this.emailService.sendResetPassword(
+      email,
+      `${firstName} ${lastName}`,
+      tempPassword,
+    );
   }
 
   @HttpCode(200)

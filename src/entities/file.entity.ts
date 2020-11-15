@@ -11,10 +11,10 @@ export class File {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: 'numeric' })
   weight: number;
 
-  @Column()
+  @Column({ type: 'numeric' })
   height: number;
 
   @CreateDateColumn({ name: 'created_at' })

@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import {
+  WorkstationCategory,
   WorkstationState,
   WorkstationType,
 } from './workstation.catalog.entity';
@@ -17,24 +18,28 @@ export class Workstation {
   id: number;
 
   @Column()
-  name: string;
-
-  @Column()
-  img: string;
+  code: string;
 
   @ManyToOne(
-    type => WorkstationType,
+    () => WorkstationType,
     workstationType => workstationType.id,
   )
   @JoinColumn({ name: 'workstation_type_id' })
   workstationType: WorkstationType;
 
   @ManyToOne(
-    type => WorkstationState,
+    () => WorkstationState,
     workstationState => workstationState.id,
   )
   @JoinColumn({ name: 'workstation_state_id' })
   workstationState: WorkstationState;
+
+  @ManyToOne(
+    () => WorkstationCategory,
+    category => category.id,
+  )
+  @JoinColumn({ name: 'workstation_category_id' })
+  workstationCategory: WorkstationCategory;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

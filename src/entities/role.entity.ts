@@ -2,10 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   JoinTable,
   ManyToMany,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -50,12 +48,12 @@ export class Role {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @ManyToMany(type => Privilege)
+  @ManyToMany(() => Privilege)
   @JoinTable()
   privilege: Privilege[];
 
   @OneToMany(
-    type => User,
+    () => User,
     user => user.role,
   )
   users: User[];

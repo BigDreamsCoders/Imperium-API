@@ -16,4 +16,16 @@ export class EmailService {
       },
     });
   }
+
+  async sendResetPassword(dest: string, name: string, pass: string) {
+    return this.mailService.sendMail({
+      to: dest,
+      subject: 'Nueva contraseña temporal',
+      template: 'newTemp.hbs',
+      context: {
+        name,
+        pass,
+      },
+    });
+  }
 }

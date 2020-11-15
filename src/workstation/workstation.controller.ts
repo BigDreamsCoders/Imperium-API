@@ -14,6 +14,7 @@ import { JwtGuard } from '../guards/jwt.guard';
 import { WorkstationService } from './workstation.service';
 import { WorkstationUseDTO } from './workstation.dto';
 import { UserService } from '../user/user.service';
+import { Workstation } from '../entities/workstation.entity';
 
 @Controller('workstation')
 export class WorkstationController {
@@ -48,7 +49,7 @@ export class WorkstationController {
     try {
       const response = await this.workstationService.updateState(
         userResponse.user,
-        workstationResponse.workstation,
+        <Workstation>workstationResponse.workstation,
         workstationActionResponse.workstationAction,
         workstationStateResponse.workstationState,
       );
@@ -56,6 +57,28 @@ export class WorkstationController {
     } catch (error) {
       throw new InternalServerErrorException((error as Error).message);
     }
+  }
+
+  @UseGuards(JwtGuard)
+  @HttpCode(200)
+  @Get('/category/:id*?')
+  async findCategory(@Param('id') id: number) {
+    const response = await this.workstationService.findCategories(id);
+    if (!response.success) throw new BadRequestException(response.message);
+    return {
+      categories: response.workstationCategory,
+    };
+  }
+
+  @UseGuards(JwtGuard)
+  @HttpCode(200)
+  @Get('/by/category/:id')
+  async findWorkstationsByCategory(@Param('id') id: number) {
+    const response = await this.workstationService.findByCategory(id);
+    if (!response.success) throw new BadRequestException(response.message);
+    return {
+      workstations: response.workstation,
+    };
   }
 
   @UseGuards(JwtGuard)

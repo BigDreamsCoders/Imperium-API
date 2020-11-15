@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Workstation } from '../entities/workstation.entity';
 import {
   WorkstationAction,
+  WorkstationCategory,
   WorkstationState,
   WorkstationUse,
 } from '../entities/workstation.catalog.entity';
@@ -18,6 +19,7 @@ import { UserModule } from '../user/user.module';
       WorkstationUse,
       WorkstationAction,
       WorkstationState,
+      WorkstationCategory,
     ]),
   ],
   exports: [TypeOrmModule],

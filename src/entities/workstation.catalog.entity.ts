@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -28,7 +29,7 @@ export class WorkstationAction {
 @Entity({ name: 'workstation_use' })
 export class WorkstationUse {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @ManyToOne(
     () => User,
@@ -58,7 +59,7 @@ export class WorkstationUse {
 @Entity({ name: 'workstation_state' })
 export class WorkstationState {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;
@@ -73,10 +74,34 @@ export class WorkstationState {
 @Entity({ name: 'workstation_type' })
 export class WorkstationType {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+}
+
+@Entity({ name: 'workstation_category' })
+export class WorkstationCategory {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column()
+  img: string;
+
+  @OneToMany(
+    () => Workstation,
+    workstation => workstation.workstationCategory,
+  )
+  workstations: Workstation;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
