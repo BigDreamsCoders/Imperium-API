@@ -1513,6 +1513,7 @@ INSERT INTO public.gender ("name") VALUES ('MASCULINO'), ('FEMENINO');
 INSERT INTO public.membership_state ("name") VALUES ('ACTIVA'), ('INACTIVA'), ('VENCIDA');
 
 INSERT INTO public.membership_type ("name", "price") VALUES ('BASICA', 11.99), ('PREMIUM', 29.99);
+<<<<<<< HEAD
 
 INSERT INTO public.workstation_type ("name") VALUES ('Cardio'), ('Strength');
 
@@ -1529,3 +1530,5 @@ VALUES
     ('ELL01', 1, 1, 1), ('ELL02', 1, 1, 1), ('ELL03', 1, 1, 1), ('ELL03', 1, 1, 1), ('ELL05', 1, 1, 1),
     ('ROWING01', 1, 1, 2), ('ROWING02', 1, 1, 2), ('ROWING03', 1, 1, 2), ('ROWING04', 1, 1, 2), ('ROWING05', 1, 1, 2),
     ('BIKE01', 1, 1, 3), ('BIKE02', 1, 1, 3), ('BIKE03', 1, 1, 3), ('BIKE04', 1, 1, 3), ('BIKE05', 1, 1, 3);
+=======
+>>>>>>> f31337350c135c3ed763d63c8f96cbd8a42f5499
