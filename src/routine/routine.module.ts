@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import {
   Routine,
   RoutineData,
-  RoutineDataType,
+  RoutineHistory,
 } from '../entities/routine.entity';
 import { User } from '../entities/user.entity';
 import { UserModule } from '../user/user.module';
@@ -17,7 +17,7 @@ import { UserService } from '../user/user.service';
   imports: [
     UserModule,
     WorkstationModule,
-    TypeOrmModule.forFeature([Routine, User, RoutineData, RoutineDataType]),
+    TypeOrmModule.forFeature([Routine, User, RoutineData, RoutineHistory]),
   ],
   exports: [TypeOrmModule],
   controllers: [RoutineController],

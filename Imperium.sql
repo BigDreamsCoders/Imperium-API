@@ -31,6 +31,9 @@ CREATE TABLE public.building_entrance (
     building_action_id integer
 );
 
+
+ALTER TABLE public.building_entrance OWNER TO petrlr14;
+
 --
 -- Name: building_entrance_action; Type: TABLE; Schema: public; Owner: petrlr14
 --
@@ -41,10 +44,6 @@ CREATE TABLE public.building_entrance_action (
     created_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
---
--- Name: building_entrance_action_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.building_entrance_action_id_seq
     AS integer
     START WITH 1
@@ -52,10 +51,6 @@ CREATE SEQUENCE public.building_entrance_action_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: building_entrance_action_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.building_entrance_action_id_seq OWNED BY public.building_entrance_action.id;
 
@@ -72,10 +67,6 @@ CREATE SEQUENCE public.building_entrance_id_seq
     NO MAXVALUE
     CACHE 1;
 
---
--- Name: building_entrance_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
-
 ALTER SEQUENCE public.building_entrance_id_seq OWNED BY public.building_entrance.id;
 
 
@@ -90,10 +81,6 @@ CREATE TABLE public.gender (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
---
--- Name: gender_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.gender_id_seq
     AS integer
     START WITH 1
@@ -101,10 +88,6 @@ CREATE SEQUENCE public.gender_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: gender_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.gender_id_seq OWNED BY public.gender.id;
 
@@ -121,10 +104,6 @@ CREATE TABLE public.medic_file (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
---
--- Name: medic_file_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.medic_file_id_seq
     AS integer
     START WITH 1
@@ -132,10 +111,6 @@ CREATE SEQUENCE public.medic_file_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: medic_file_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.medic_file_id_seq OWNED BY public.medic_file.id;
 
@@ -152,10 +127,6 @@ CREATE TABLE public.membership (
     membership_state integer
 );
 
---
--- Name: membership_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.membership_id_seq
     AS integer
     START WITH 1
@@ -163,10 +134,6 @@ CREATE SEQUENCE public.membership_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: membership_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.membership_id_seq OWNED BY public.membership.id;
 
@@ -182,10 +149,6 @@ CREATE TABLE public.membership_state (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
---
--- Name: membership_state_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.membership_state_id_seq
     AS integer
     START WITH 1
@@ -193,10 +156,6 @@ CREATE SEQUENCE public.membership_state_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: membership_state_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.membership_state_id_seq OWNED BY public.membership_state.id;
 
@@ -213,10 +172,6 @@ CREATE TABLE public.membership_type (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
---
--- Name: membership_type_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.membership_type_id_seq
     AS integer
     START WITH 1
@@ -224,10 +179,6 @@ CREATE SEQUENCE public.membership_type_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: membership_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.membership_type_id_seq OWNED BY public.membership_type.id;
 
@@ -246,10 +197,6 @@ CREATE TABLE public.privilege (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
---
--- Name: privilege_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.privilege_id_seq
     AS integer
     START WITH 1
@@ -257,10 +204,6 @@ CREATE SEQUENCE public.privilege_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: privilege_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.privilege_id_seq OWNED BY public.privilege.id;
 
@@ -276,10 +219,6 @@ CREATE TABLE public.role (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
---
--- Name: role_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.role_id_seq
     AS integer
     START WITH 1
@@ -287,10 +226,6 @@ CREATE SEQUENCE public.role_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.role_id_seq OWNED BY public.role.id;
 
@@ -304,10 +239,6 @@ CREATE TABLE public.role_privilege_privilege (
     "privilegeId" integer NOT NULL
 );
 
---
--- Name: routine; Type: TABLE; Schema: public; Owner: petrlr14
---
-
 CREATE TABLE public.routine (
     id integer NOT NULL,
     name character varying NOT NULL,
@@ -316,23 +247,14 @@ CREATE TABLE public.routine (
     creator_id integer
 );
 
---
--- Name: routine_data; Type: TABLE; Schema: public; Owner: petrlr14
---
-
 CREATE TABLE public.routine_data (
     id integer NOT NULL,
     "time" character varying,
-    calories character varying,
     repetition integer,
     sets integer,
     workstation_id integer,
-    data_type_id integer
+    calories character varying
 );
-
---
--- Name: routine_data_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
 
 CREATE SEQUENCE public.routine_data_id_seq
     AS integer
@@ -342,39 +264,8 @@ CREATE SEQUENCE public.routine_data_id_seq
     NO MAXVALUE
     CACHE 1;
 
---
--- Name: routine_data_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
-
 ALTER SEQUENCE public.routine_data_id_seq OWNED BY public.routine_data.id;
 
-
---
--- Name: routine_data_type; Type: TABLE; Schema: public; Owner: petrlr14
---
-
-CREATE TABLE public.routine_data_type (
-    id integer NOT NULL,
-    name character varying NOT NULL
-);
-
---
--- Name: routine_data_type_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
-CREATE SEQUENCE public.routine_data_type_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
---
--- Name: routine_data_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
-
-ALTER SEQUENCE public.routine_data_type_id_seq OWNED BY public.routine_data_type.id;
 
 
 --
@@ -388,18 +279,10 @@ CREATE TABLE public.routine_history (
     user_id integer
 );
 
---
--- Name: routine_history_data_routine_data; Type: TABLE; Schema: public; Owner: petrlr14
---
-
 CREATE TABLE public.routine_history_data_routine_data (
     "routineHistoryId" integer NOT NULL,
     "routineDataId" integer NOT NULL
 );
-
---
--- Name: routine_history_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
 
 CREATE SEQUENCE public.routine_history_id_seq
     AS integer
@@ -408,10 +291,6 @@ CREATE SEQUENCE public.routine_history_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: routine_history_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.routine_history_id_seq OWNED BY public.routine_history.id;
 
@@ -428,10 +307,6 @@ CREATE SEQUENCE public.routine_id_seq
     NO MAXVALUE
     CACHE 1;
 
---
--- Name: routine_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
-
 ALTER SEQUENCE public.routine_id_seq OWNED BY public.routine.id;
 
 
@@ -446,10 +321,6 @@ CREATE TABLE public.routine_type (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
---
--- Name: routine_type_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.routine_type_id_seq
     AS integer
     START WITH 1
@@ -457,10 +328,6 @@ CREATE SEQUENCE public.routine_type_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: routine_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.routine_type_id_seq OWNED BY public.routine_type.id;
 
@@ -474,9 +341,10 @@ CREATE TABLE public.routine_workstation_workstation (
     "workstationId" integer NOT NULL
 );
 
---
--- Name: user; Type: TABLE; Schema: public; Owner: petrlr14
---
+CREATE TABLE public.routine_workstation_workstation_category (
+    "routineId" integer NOT NULL,
+    "workstationCategoryId" integer NOT NULL
+);
 
 CREATE TABLE public."user" (
     id integer NOT NULL,
@@ -493,10 +361,6 @@ CREATE TABLE public."user" (
     file_id integer
 );
 
---
--- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.user_id_seq
     AS integer
     START WITH 1
@@ -504,10 +368,6 @@ CREATE SEQUENCE public.user_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
 
@@ -521,10 +381,6 @@ CREATE TABLE public.user_saved_routines_routine (
     "routineId" integer NOT NULL
 );
 
---
--- Name: workstation; Type: TABLE; Schema: public; Owner: petrlr14
---
-
 CREATE TABLE public.workstation (
     id integer NOT NULL,
     code character varying NOT NULL,
@@ -535,20 +391,12 @@ CREATE TABLE public.workstation (
     workstation_category_id integer
 );
 
---
--- Name: workstation_action; Type: TABLE; Schema: public; Owner: petrlr14
---
-
 CREATE TABLE public.workstation_action (
     id integer NOT NULL,
     name character varying NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
-
---
--- Name: workstation_action_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
 
 CREATE SEQUENCE public.workstation_action_id_seq
     AS integer
@@ -557,10 +405,6 @@ CREATE SEQUENCE public.workstation_action_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: workstation_action_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.workstation_action_id_seq OWNED BY public.workstation_action.id;
 
@@ -574,12 +418,9 @@ CREATE TABLE public.workstation_category (
     name character varying NOT NULL,
     img character varying NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
-    updated_at timestamp without time zone DEFAULT now() NOT NULL
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    workstation_type_id integer
 );
-
---
--- Name: workstation_category_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
 
 CREATE SEQUENCE public.workstation_category_id_seq
     AS integer
@@ -588,10 +429,6 @@ CREATE SEQUENCE public.workstation_category_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: workstation_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.workstation_category_id_seq OWNED BY public.workstation_category.id;
 
@@ -608,10 +445,6 @@ CREATE SEQUENCE public.workstation_id_seq
     NO MAXVALUE
     CACHE 1;
 
---
--- Name: workstation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
-
 ALTER SEQUENCE public.workstation_id_seq OWNED BY public.workstation.id;
 
 
@@ -626,10 +459,6 @@ CREATE TABLE public.workstation_state (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
---
--- Name: workstation_state_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.workstation_state_id_seq
     AS integer
     START WITH 1
@@ -637,10 +466,6 @@ CREATE SEQUENCE public.workstation_state_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: workstation_state_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.workstation_state_id_seq OWNED BY public.workstation_state.id;
 
@@ -656,10 +481,6 @@ CREATE TABLE public.workstation_type (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
---
--- Name: workstation_type_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.workstation_type_id_seq
     AS integer
     START WITH 1
@@ -667,10 +488,6 @@ CREATE SEQUENCE public.workstation_type_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: workstation_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.workstation_type_id_seq OWNED BY public.workstation_type.id;
 
@@ -687,10 +504,6 @@ CREATE TABLE public.workstation_use (
     workstation_action_id integer
 );
 
---
--- Name: workstation_use_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
 CREATE SEQUENCE public.workstation_use_id_seq
     AS integer
     START WITH 1
@@ -698,10 +511,6 @@ CREATE SEQUENCE public.workstation_use_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
---
--- Name: workstation_use_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
 
 ALTER SEQUENCE public.workstation_use_id_seq OWNED BY public.workstation_use.id;
 
@@ -783,12 +592,6 @@ ALTER TABLE ONLY public.routine ALTER COLUMN id SET DEFAULT nextval('public.rout
 ALTER TABLE ONLY public.routine_data ALTER COLUMN id SET DEFAULT nextval('public.routine_data_id_seq'::regclass);
 
 
---
--- Name: routine_data_type id; Type: DEFAULT; Schema: public; Owner: petrlr14
---
-
-ALTER TABLE ONLY public.routine_data_type ALTER COLUMN id SET DEFAULT nextval('public.routine_data_type_id_seq'::regclass);
-
 
 --
 -- Name: routine_history id; Type: DEFAULT; Schema: public; Owner: petrlr14
@@ -853,9 +656,6 @@ ALTER TABLE ONLY public.workstation_type ALTER COLUMN id SET DEFAULT nextval('pu
 ALTER TABLE ONLY public.workstation_use ALTER COLUMN id SET DEFAULT nextval('public.workstation_use_id_seq'::regclass);
 
 
---
--- Name: building_entrance_action_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
---
 
 SELECT pg_catalog.setval('public.building_entrance_action_id_seq', 1, false);
 
@@ -871,49 +671,49 @@ SELECT pg_catalog.setval('public.building_entrance_id_seq', 1, false);
 -- Name: gender_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.gender_id_seq', 1, false);
+SELECT pg_catalog.setval('public.gender_id_seq', 2, true);
 
 
 --
 -- Name: medic_file_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.medic_file_id_seq', 1, false);
+SELECT pg_catalog.setval('public.medic_file_id_seq', 2, true);
 
 
 --
 -- Name: membership_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.membership_id_seq', 1, false);
+SELECT pg_catalog.setval('public.membership_id_seq', 2, true);
 
 
 --
 -- Name: membership_state_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.membership_state_id_seq', 1, false);
+SELECT pg_catalog.setval('public.membership_state_id_seq', 3, true);
 
 
 --
 -- Name: membership_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.membership_type_id_seq', 1, false);
+SELECT pg_catalog.setval('public.membership_type_id_seq', 2, true);
 
 
 --
 -- Name: privilege_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.privilege_id_seq', 1, false);
+SELECT pg_catalog.setval('public.privilege_id_seq', 7, true);
 
 
 --
 -- Name: role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.role_id_seq', 1, false);
+SELECT pg_catalog.setval('public.role_id_seq', 2, true);
 
 
 --
@@ -927,7 +727,7 @@ SELECT pg_catalog.setval('public.routine_data_id_seq', 1, false);
 -- Name: routine_data_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.routine_data_type_id_seq', 1, false);
+SELECT pg_catalog.setval('public.routine_data_type_id_seq', 2, true);
 
 
 --
@@ -941,7 +741,7 @@ SELECT pg_catalog.setval('public.routine_history_id_seq', 1, false);
 -- Name: routine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.routine_id_seq', 1, false);
+SELECT pg_catalog.setval('public.routine_id_seq', 7, true);
 
 
 --
@@ -955,49 +755,49 @@ SELECT pg_catalog.setval('public.routine_type_id_seq', 1, false);
 -- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.user_id_seq', 1, false);
+SELECT pg_catalog.setval('public.user_id_seq', 2, true);
 
 
 --
 -- Name: workstation_action_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.workstation_action_id_seq', 1, false);
+SELECT pg_catalog.setval('public.workstation_action_id_seq', 2, true);
 
 
 --
 -- Name: workstation_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.workstation_category_id_seq', 1, false);
+SELECT pg_catalog.setval('public.workstation_category_id_seq', 4, true);
 
 
 --
 -- Name: workstation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.workstation_id_seq', 1, false);
+SELECT pg_catalog.setval('public.workstation_id_seq', 15, true);
 
 
 --
 -- Name: workstation_state_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.workstation_state_id_seq', 1, false);
+SELECT pg_catalog.setval('public.workstation_state_id_seq', 3, true);
 
 
 --
 -- Name: workstation_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.workstation_type_id_seq', 1, false);
+SELECT pg_catalog.setval('public.workstation_type_id_seq', 2, true);
 
 
 --
 -- Name: workstation_use_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
 --
 
-SELECT pg_catalog.setval('public.workstation_use_id_seq', 1, false);
+SELECT pg_catalog.setval('public.workstation_use_id_seq', 34, true);
 
 
 --
@@ -1022,6 +822,14 @@ ALTER TABLE ONLY public.workstation
 
 ALTER TABLE ONLY public.routine_data
     ADD CONSTRAINT "PK_4b67981d16fe91bb0d9bcf8b0f0" PRIMARY KEY (id);
+
+
+--
+-- Name: routine_workstation_workstation_category PK_4bc31665d179c55cf5046d2523a; Type: CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_workstation_workstation_category
+    ADD CONSTRAINT "PK_4bc31665d179c55cf5046d2523a" PRIMARY KEY ("routineId", "workstationCategoryId");
 
 
 --
@@ -1168,13 +976,6 @@ ALTER TABLE ONLY public."user"
     ADD CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY (id);
 
 
---
--- Name: routine_data_type PK_d33c356bc2b4112fc0a51052d3d; Type: CONSTRAINT; Schema: public; Owner: petrlr14
---
-
-ALTER TABLE ONLY public.routine_data_type
-    ADD CONSTRAINT "PK_d33c356bc2b4112fc0a51052d3d" PRIMARY KEY (id);
-
 
 --
 -- Name: routine_workstation_workstation PK_eee1bbd1214ffac038978a47215; Type: CONSTRAINT; Schema: public; Owner: petrlr14
@@ -1245,6 +1046,13 @@ CREATE INDEX "IDX_344903258f2aedc0f2ef5a8da9" ON public.routine_history_data_rou
 
 
 --
+-- Name: IDX_65e9ea7611bf59285f9233d171; Type: INDEX; Schema: public; Owner: petrlr14
+--
+
+CREATE INDEX "IDX_65e9ea7611bf59285f9233d171" ON public.routine_workstation_workstation_category USING btree ("routineId");
+
+
+--
 -- Name: IDX_945c21de79cf825677d737ae57; Type: INDEX; Schema: public; Owner: petrlr14
 --
 
@@ -1256,6 +1064,13 @@ CREATE INDEX "IDX_945c21de79cf825677d737ae57" ON public.user_saved_routines_rout
 --
 
 CREATE INDEX "IDX_a0b7732af9502459207c8f1b22" ON public.role_privilege_privilege USING btree ("roleId");
+
+
+--
+-- Name: IDX_bae24226df5419260e20415e5a; Type: INDEX; Schema: public; Owner: petrlr14
+--
+
+CREATE INDEX "IDX_bae24226df5419260e20415e5a" ON public.routine_workstation_workstation_category USING btree ("workstationCategoryId");
 
 
 --
@@ -1296,13 +1111,6 @@ ALTER TABLE ONLY public.role_privilege_privilege
     ADD CONSTRAINT "FK_0bd7464c26f4d699ec2a5bad08b" FOREIGN KEY ("privilegeId") REFERENCES public.privilege(id) ON DELETE CASCADE;
 
 
---
--- Name: routine_data FK_165ede9f71b2c4b1e7e33493f97; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
---
-
-ALTER TABLE ONLY public.routine_data
-    ADD CONSTRAINT "FK_165ede9f71b2c4b1e7e33493f97" FOREIGN KEY (data_type_id) REFERENCES public.routine_data_type(id);
-
 
 --
 -- Name: user_saved_routines_routine FK_1bb65f97814955e7f4b0b2370fe; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
@@ -1318,6 +1126,14 @@ ALTER TABLE ONLY public.user_saved_routines_routine
 
 ALTER TABLE ONLY public.routine_history_data_routine_data
     ADD CONSTRAINT "FK_344903258f2aedc0f2ef5a8da94" FOREIGN KEY ("routineHistoryId") REFERENCES public.routine_history(id) ON DELETE CASCADE;
+
+
+--
+-- Name: workstation_category FK_34ce58cb8abb3e1c1c2c1d6946a; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.workstation_category
+    ADD CONSTRAINT "FK_34ce58cb8abb3e1c1c2c1d6946a" FOREIGN KEY (workstation_type_id) REFERENCES public.workstation_type(id);
 
 
 --
@@ -1342,6 +1158,14 @@ ALTER TABLE ONLY public.membership
 
 ALTER TABLE ONLY public.routine
     ADD CONSTRAINT "FK_635351519843a97fa5f157bda0c" FOREIGN KEY (creator_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: routine_workstation_workstation_category FK_65e9ea7611bf59285f9233d1716; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_workstation_workstation_category
+    ADD CONSTRAINT "FK_65e9ea7611bf59285f9233d1716" FOREIGN KEY ("routineId") REFERENCES public.routine(id) ON DELETE CASCADE;
 
 
 --
@@ -1398,6 +1222,14 @@ ALTER TABLE ONLY public.user_saved_routines_routine
 
 ALTER TABLE ONLY public.role_privilege_privilege
     ADD CONSTRAINT "FK_a0b7732af9502459207c8f1b229" FOREIGN KEY ("roleId") REFERENCES public.role(id) ON DELETE CASCADE;
+
+
+--
+-- Name: routine_workstation_workstation_category FK_bae24226df5419260e20415e5a7; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_workstation_workstation_category
+    ADD CONSTRAINT "FK_bae24226df5419260e20415e5a7" FOREIGN KEY ("workstationCategoryId") REFERENCES public.workstation_category(id) ON DELETE CASCADE;
 
 
 --
@@ -1492,7 +1324,6 @@ ALTER TABLE ONLY public.routine_workstation_workstation
 -- PostgreSQL database dump complete
 --
 
-
 -- database pupulation
 INSERT INTO public.role (name) VALUES ('ADMIN'), ('USER');
 INSERT INTO public.privilege ("resource", "action", "possession", "display_name" )
@@ -1513,22 +1344,24 @@ INSERT INTO public.gender ("name") VALUES ('MASCULINO'), ('FEMENINO');
 INSERT INTO public.membership_state ("name") VALUES ('ACTIVA'), ('INACTIVA'), ('VENCIDA');
 
 INSERT INTO public.membership_type ("name", "price") VALUES ('BASICA', 11.99), ('PREMIUM', 29.99);
-<<<<<<< HEAD
 
 INSERT INTO public.workstation_type ("name") VALUES ('Cardio'), ('Strength');
 
 INSERT INTO public.workstation_state ("name") VALUES ('Available'), ('Unavailable'), ('Inactive');
 
-INSERT INTO public.workstation_category ("name", "img") 
+INSERT INTO public.workstation_category ("name", "img", "workstation_type_id") 
 VALUES 
-    ('Elliptical', 'https://static.onecms.io/wp-content/uploads/sites/35/2020/08/03/elliptical-workout-for-beginners-promo.jpg'),
-    ('Rowing', 'https://s.yimg.com/ny/api/res/1.2/RmRlFH0e3DWTYixF0C6mhg--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/https://media.zenfs.com/en/runner_s_world_304/5dc95126d0aa1b16a90e6829d2be5cd5'),
-    ('Stationary bicycle', 'https://res.cloudinary.com/moves365/image/upload/c_fit,h_860,w_860/stationary-bike-benefits.jpg-435c7288-924d-4396-a1d1-318774cd5a39');
+    ('Elíptica', 'https://www.mundofitness.es/media/catalog/product/cache/1/image/654x654/9df78eab33525d08d6e5fb8d27136e95/p/e/petl74917-gallery.png', 1),
+    ('Remo', 'https://www.johnsonfitness.com/Home/ProductImage?sku=2712US', 1),
+    ('Bicileta estacionaria', 'https://img2.pngio.com/exercise-bike-png-transparent-exercise-bikepng-images-pluspng-stationary-bike-png-300_300.png', 1),
+    ('Caminadora', 'https://pngimg.com/uploads/treadmill/treadmill_PNG12.png', 1),
+    ('Prensa', 'https://i.ibb.co/PMVBRMV/Maquina.png', 2);
+    
 
 INSERT INTO public.workstation ("code", "workstation_type_id", "workstation_state_id", "workstation_category_id")
 VALUES 
-    ('ELL01', 1, 1, 1), ('ELL02', 1, 1, 1), ('ELL03', 1, 1, 1), ('ELL03', 1, 1, 1), ('ELL05', 1, 1, 1),
+    ('ELL01', 1, 1, 1), ('ELL02', 1, 1, 1), ('ELL03', 1, 1, 1), ('ELL04', 1, 1, 1), ('ELL05', 1, 1, 1),
     ('ROWING01', 1, 1, 2), ('ROWING02', 1, 1, 2), ('ROWING03', 1, 1, 2), ('ROWING04', 1, 1, 2), ('ROWING05', 1, 1, 2),
-    ('BIKE01', 1, 1, 3), ('BIKE02', 1, 1, 3), ('BIKE03', 1, 1, 3), ('BIKE04', 1, 1, 3), ('BIKE05', 1, 1, 3);
-=======
->>>>>>> f31337350c135c3ed763d63c8f96cbd8a42f5499
+    ('BIKE01', 1, 1, 3), ('BIKE02', 1, 1, 3), ('BIKE03', 1, 1, 3), ('BIKE04', 1, 1, 3), ('BIKE05', 1, 1, 3),
+    ('CAMINADORA01', 1, 1, 4), ('CAMINADORA02', 1, 1, 4), ('CAMINADORA03', 1, 1, 4), ('CAMINADORA04', 1, 1, 4), ('CAMINADORA05', 1, 1, 4),
+    ('PRENSA01', 2, 1, 5), ('PRESNA02', 2, 1, 5), ('PRESNA03', 2, 1, 5), ('PRESNA04', 2, 1, 5), ('PRESNA05', 2, 1, 5);

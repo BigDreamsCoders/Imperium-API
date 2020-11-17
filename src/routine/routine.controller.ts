@@ -13,11 +13,12 @@ import {
 } from '@nestjs/common';
 import { Routine } from '../entities/routine.entity';
 import { User } from '../entities/user.entity';
+import { WorkstationCategory } from '../entities/workstation.catalog.entity';
 import { Workstation } from '../entities/workstation.entity';
 import { JwtGuard } from '../guards/jwt.guard';
 import { UserService } from '../user/user.service';
 import { WorkstationService } from '../workstation/workstation.service';
-import { RoutineDTO } from './routine.dto';
+import { RoutineDTO, RoutineHistoryDTO } from './routine.dto';
 import { RoutineService } from './routine.service';
 
 @Controller('routine')
@@ -33,7 +34,7 @@ export class RoutineController {
   @Post()
   async create(@Req() req: any, @Body() routineDTO: RoutineDTO) {
     const workstationResponse = await this.workstationService.findAllOccureance(
-      routineDTO.workstation,
+      routineDTO.workstationCategories,
     );
     if (!workstationResponse.success)
       throw new BadRequestException(workstationResponse.message);
@@ -43,9 +44,50 @@ export class RoutineController {
     const routineResponse = await this.routineService.createRoutine(
       userResponse.user,
       routineDTO,
-      <Workstation[]>workstationResponse.workstation,
+      <WorkstationCategory[]>workstationResponse.workstationCategory,
     );
     if (!routineResponse.success) throw new InternalServerErrorException();
+    return;
+  }
+
+  /* Este metodo quedara hechizo por razones de tiempo, sin validaciones pertinentes */
+  @UseGuards(JwtGuard)
+  @HttpCode(201)
+  @Post('/history')
+  async saveRoutineHistory(
+    @Req() req: any,
+    @Body() routineHistoryDTO: RoutineHistoryDTO,
+  ) {
+    const routineResponse = await this.routineService.find(
+      routineHistoryDTO.routine,
+      undefined,
+    );
+    if (!routineResponse.success)
+      throw new BadRequestException(routineResponse.message);
+    console.log('encuentra la rutina');
+    const userResponse = await this.userService.findById(req.user.id);
+    if (!userResponse.success)
+      throw new BadRequestException(userResponse.message);
+
+    const workstationResponse = await this.workstationService.findAllWorkstationOccureance(
+      routineHistoryDTO.data.map(routineData => {
+        return routineData.workstation;
+      }),
+    );
+
+    if (!workstationResponse.success)
+      throw new BadRequestException(workstationResponse.message);
+
+    const historyResponse = await this.routineService.saveRoutineHistory(
+      routineHistoryDTO,
+      userResponse.user,
+      routineResponse.routine,
+      <Workstation[]>workstationResponse.workstation,
+    );
+    console.log('llega aqui');
+    if (!historyResponse.success)
+      throw new BadRequestException(historyResponse.message);
+
     return;
   }
 
@@ -89,6 +131,7 @@ export class RoutineController {
   @Get('/:id*?')
   async find(@Param('id') id: number, @Req() req: any) {
     const user = await this.userService.find(req.user.id, undefined, undefined);
+
     if (!user) throw new BadRequestException('User not found');
     const response = await this.routineService.find(id, <User>user);
     if (!response.success) throw new BadRequestException(response.message);
