@@ -97,6 +97,13 @@ export class WorkstationCategory {
   @Column()
   img: string;
 
+  @ManyToOne(
+    () => WorkstationType,
+    workstationType => workstationType.id,
+  )
+  @JoinColumn({ name: 'workstation_type_id' })
+  workstationType: WorkstationType;
+
   @OneToMany(
     () => Workstation,
     workstation => workstation.workstationCategory,

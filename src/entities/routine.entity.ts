@@ -10,6 +10,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
+import { WorkstationCategory } from './workstation.catalog.entity';
 import { Workstation } from './workstation.entity';
 
 @Entity()
@@ -20,9 +21,9 @@ export class Routine {
   @Column()
   name: string;
 
-  @ManyToMany(() => Workstation)
+  @ManyToMany(() => WorkstationCategory)
   @JoinTable()
-  workstation: Workstation[];
+  workstation: WorkstationCategory[];
 
   @ManyToOne(
     () => User,
@@ -39,14 +40,6 @@ export class Routine {
 }
 
 @Entity()
-export class RoutineDataType {
-  @PrimaryGeneratedColumn()
-  id: number;
-  @Column({ enum: ['Cardio', 'Strength'] })
-  name: string;
-}
-
-@Entity()
 export class RoutineData {
   @PrimaryGeneratedColumn()
   id: number;
@@ -57,13 +50,6 @@ export class RoutineData {
   )
   @JoinColumn({ name: 'workstation_id' })
   workstation: Workstation;
-
-  @ManyToOne(
-    () => RoutineDataType,
-    dataType => dataType.id,
-  )
-  @JoinColumn({ name: 'data_type_id' })
-  dataType: RoutineDataType;
 
   @Column({ nullable: true })
   time: string;

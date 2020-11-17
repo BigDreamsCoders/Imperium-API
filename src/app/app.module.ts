@@ -1,3 +1,4 @@
+import { BuildingModule } from './../building/building.module';
 import { RoutineModule } from './../routine/routine.module';
 import { WorkstationModule } from './../workstation/workstation.module';
 import { EmailModule } from './../email/email.module';
@@ -18,6 +19,7 @@ import { MyMailerModule } from '../mailer.module';
 
 @Module({
   imports: [
+    BuildingModule,
     RoutineModule,
     WorkstationModule,
     EmailModule,

@@ -16,7 +16,7 @@ export class MembershipType {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ type: 'numeric' })
   price: number;
 
   @OneToMany(

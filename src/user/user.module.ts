@@ -13,6 +13,8 @@ import { RoleModule } from '../role/role.module';
 import { RoleService } from '../role/role.service';
 import { EmailModule } from '../email/email.module';
 import { EmailService } from '../email/email.service';
+import { BuildingModule } from '../building/building.module';
+import { BuildingService } from '../building/building.service';
 
 @Module({
   imports: [
@@ -22,6 +24,7 @@ import { EmailService } from '../email/email.service';
     GenderModule,
     RoleModule,
     EmailModule,
+    BuildingModule,
   ],
   exports: [TypeOrmModule, UserService],
   controllers: [UserController],
@@ -32,6 +35,7 @@ import { EmailService } from '../email/email.service';
     GenderService,
     RoleService,
     EmailService,
+    BuildingService,
   ],
 })
 export class UserModule {}

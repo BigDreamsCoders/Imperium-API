@@ -23,6 +23,8 @@ export class WorkstationController {
     private readonly userService: UserService,
   ) {}
 
+  @UseGuards(JwtGuard)
+  @HttpCode(200)
   @Post('use/:id')
   async useWorkstation(
     @Param('id') id: number,
@@ -42,7 +44,7 @@ export class WorkstationController {
     if (!workstationActionResponse.success)
       return new BadRequestException(workstationActionResponse.message);
     const workstationStateResponse = await this.workstationService.findStateById(
-      workstationUseDTO.actionId,
+      workstationUseDTO.actionId === 1 ? 2 : 1,
     );
     if (!workstationStateResponse.success)
       return new BadRequestException(workstationStateResponse.message);
@@ -53,9 +55,12 @@ export class WorkstationController {
         workstationActionResponse.workstationAction,
         workstationStateResponse.workstationState,
       );
-      return response.message;
+      if (!response.success) {
+        throw new BadRequestException(response.message);
+      }
+      return response.workstation;
     } catch (error) {
-      throw new InternalServerErrorException((error as Error).message);
+      throw new BadRequestException((error as Error).message);
     }
   }
 
@@ -79,6 +84,15 @@ export class WorkstationController {
     return {
       workstations: response.workstation,
     };
+  }
+
+  @UseGuards(JwtGuard)
+  @HttpCode(200)
+  @Get('/available/:id')
+  async findAvailableWorkstation(@Param('id') id: number) {
+    const response = await this.workstationService.findAvailableByCategory(id);
+    if (!response.success) throw new BadRequestException(response.message);
+    return response.workstation;
   }
 
   @UseGuards(JwtGuard)

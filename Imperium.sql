@@ -208,7 +208,7 @@ ALTER SEQUENCE public.membership_state_id_seq OWNED BY public.membership_state.i
 CREATE TABLE public.membership_type (
     id integer NOT NULL,
     name character varying NOT NULL,
-    price integer NOT NULL,
+    price numeric NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
@@ -326,8 +326,7 @@ CREATE TABLE public.routine_data (
     calories character varying,
     repetition integer,
     sets integer,
-    workstation_id integer,
-    data_type_id integer
+    workstation_id integer
 );
 
 --
@@ -347,34 +346,6 @@ CREATE SEQUENCE public.routine_data_id_seq
 --
 
 ALTER SEQUENCE public.routine_data_id_seq OWNED BY public.routine_data.id;
-
-
---
--- Name: routine_data_type; Type: TABLE; Schema: public; Owner: petrlr14
---
-
-CREATE TABLE public.routine_data_type (
-    id integer NOT NULL,
-    name character varying NOT NULL
-);
-
---
--- Name: routine_data_type_id_seq; Type: SEQUENCE; Schema: public; Owner: petrlr14
---
-
-CREATE SEQUENCE public.routine_data_type_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
---
--- Name: routine_data_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: petrlr14
---
-
-ALTER SEQUENCE public.routine_data_type_id_seq OWNED BY public.routine_data_type.id;
 
 
 --
@@ -466,12 +437,12 @@ ALTER SEQUENCE public.routine_type_id_seq OWNED BY public.routine_type.id;
 
 
 --
--- Name: routine_workstation_workstation; Type: TABLE; Schema: public; Owner: petrlr14
+-- Name: routine_workstation_workstation_category; Type: TABLE; Schema: public; Owner: petrlr14
 --
 
-CREATE TABLE public.routine_workstation_workstation (
+CREATE TABLE public.routine_workstation_workstation_category (
     "routineId" integer NOT NULL,
-    "workstationId" integer NOT NULL
+    "workstationCategoryId" integer NOT NULL
 );
 
 --
@@ -485,6 +456,7 @@ CREATE TABLE public."user" (
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
     birthday timestamp without time zone NOT NULL,
+    is_identified boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     gender_id integer,
@@ -574,7 +546,8 @@ CREATE TABLE public.workstation_category (
     name character varying NOT NULL,
     img character varying NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
-    updated_at timestamp without time zone DEFAULT now() NOT NULL
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    workstation_type_id integer
 );
 
 --
@@ -784,13 +757,6 @@ ALTER TABLE ONLY public.routine_data ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- Name: routine_data_type id; Type: DEFAULT; Schema: public; Owner: petrlr14
---
-
-ALTER TABLE ONLY public.routine_data_type ALTER COLUMN id SET DEFAULT nextval('public.routine_data_type_id_seq'::regclass);
-
-
---
 -- Name: routine_history id; Type: DEFAULT; Schema: public; Owner: petrlr14
 --
 
@@ -854,7 +820,7 @@ ALTER TABLE ONLY public.workstation_use ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
--- Name: building_entrance_action_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
+-- Data for Name: building_entrance; Type: TABLE DATA; Schema: public; Owner: petrlr14
 --
 
 SELECT pg_catalog.setval('public.building_entrance_action_id_seq', 1, false);
@@ -921,13 +887,6 @@ SELECT pg_catalog.setval('public.role_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.routine_data_id_seq', 1, false);
-
-
---
--- Name: routine_data_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: petrlr14
---
-
-SELECT pg_catalog.setval('public.routine_data_type_id_seq', 1, false);
 
 
 --
@@ -1022,6 +981,14 @@ ALTER TABLE ONLY public.workstation
 
 ALTER TABLE ONLY public.routine_data
     ADD CONSTRAINT "PK_4b67981d16fe91bb0d9bcf8b0f0" PRIMARY KEY (id);
+
+
+--
+-- Name: routine_workstation_workstation_category PK_4bc31665d179c55cf5046d2523a; Type: CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_workstation_workstation_category
+    ADD CONSTRAINT "PK_4bc31665d179c55cf5046d2523a" PRIMARY KEY ("routineId", "workstationCategoryId");
 
 
 --
@@ -1169,22 +1136,6 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: routine_data_type PK_d33c356bc2b4112fc0a51052d3d; Type: CONSTRAINT; Schema: public; Owner: petrlr14
---
-
-ALTER TABLE ONLY public.routine_data_type
-    ADD CONSTRAINT "PK_d33c356bc2b4112fc0a51052d3d" PRIMARY KEY (id);
-
-
---
--- Name: routine_workstation_workstation PK_eee1bbd1214ffac038978a47215; Type: CONSTRAINT; Schema: public; Owner: petrlr14
---
-
-ALTER TABLE ONLY public.routine_workstation_workstation
-    ADD CONSTRAINT "PK_eee1bbd1214ffac038978a47215" PRIMARY KEY ("routineId", "workstationId");
-
-
---
 -- Name: medic_file PK_f6b39c145a6df7415483b18d6ad; Type: CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
@@ -1217,13 +1168,6 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: IDX_02cb33d054232c83af6dda7952; Type: INDEX; Schema: public; Owner: petrlr14
---
-
-CREATE INDEX "IDX_02cb33d054232c83af6dda7952" ON public.routine_workstation_workstation USING btree ("routineId");
-
-
---
 -- Name: IDX_0bd7464c26f4d699ec2a5bad08; Type: INDEX; Schema: public; Owner: petrlr14
 --
 
@@ -1245,6 +1189,13 @@ CREATE INDEX "IDX_344903258f2aedc0f2ef5a8da9" ON public.routine_history_data_rou
 
 
 --
+-- Name: IDX_65e9ea7611bf59285f9233d171; Type: INDEX; Schema: public; Owner: petrlr14
+--
+
+CREATE INDEX "IDX_65e9ea7611bf59285f9233d171" ON public.routine_workstation_workstation_category USING btree ("routineId");
+
+
+--
 -- Name: IDX_945c21de79cf825677d737ae57; Type: INDEX; Schema: public; Owner: petrlr14
 --
 
@@ -1259,25 +1210,17 @@ CREATE INDEX "IDX_a0b7732af9502459207c8f1b22" ON public.role_privilege_privilege
 
 
 --
+-- Name: IDX_bae24226df5419260e20415e5a; Type: INDEX; Schema: public; Owner: petrlr14
+--
+
+CREATE INDEX "IDX_bae24226df5419260e20415e5a" ON public.routine_workstation_workstation_category USING btree ("workstationCategoryId");
+
+
+--
 -- Name: IDX_d2548aea7b0221d2e673d70475; Type: INDEX; Schema: public; Owner: petrlr14
 --
 
 CREATE INDEX "IDX_d2548aea7b0221d2e673d70475" ON public.routine_history_data_routine_data USING btree ("routineDataId");
-
-
---
--- Name: IDX_ff8552a2c966f9fb86fa3c5928; Type: INDEX; Schema: public; Owner: petrlr14
---
-
-CREATE INDEX "IDX_ff8552a2c966f9fb86fa3c5928" ON public.routine_workstation_workstation USING btree ("workstationId");
-
-
---
--- Name: routine_workstation_workstation FK_02cb33d054232c83af6dda79528; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
---
-
-ALTER TABLE ONLY public.routine_workstation_workstation
-    ADD CONSTRAINT "FK_02cb33d054232c83af6dda79528" FOREIGN KEY ("routineId") REFERENCES public.routine(id) ON DELETE CASCADE;
 
 
 --
@@ -1297,14 +1240,6 @@ ALTER TABLE ONLY public.role_privilege_privilege
 
 
 --
--- Name: routine_data FK_165ede9f71b2c4b1e7e33493f97; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
---
-
-ALTER TABLE ONLY public.routine_data
-    ADD CONSTRAINT "FK_165ede9f71b2c4b1e7e33493f97" FOREIGN KEY (data_type_id) REFERENCES public.routine_data_type(id);
-
-
---
 -- Name: user_saved_routines_routine FK_1bb65f97814955e7f4b0b2370fe; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
 --
 
@@ -1318,6 +1253,14 @@ ALTER TABLE ONLY public.user_saved_routines_routine
 
 ALTER TABLE ONLY public.routine_history_data_routine_data
     ADD CONSTRAINT "FK_344903258f2aedc0f2ef5a8da94" FOREIGN KEY ("routineHistoryId") REFERENCES public.routine_history(id) ON DELETE CASCADE;
+
+
+--
+-- Name: workstation_category FK_34ce58cb8abb3e1c1c2c1d6946a; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.workstation_category
+    ADD CONSTRAINT "FK_34ce58cb8abb3e1c1c2c1d6946a" FOREIGN KEY (workstation_type_id) REFERENCES public.workstation_type(id);
 
 
 --
@@ -1342,6 +1285,14 @@ ALTER TABLE ONLY public.membership
 
 ALTER TABLE ONLY public.routine
     ADD CONSTRAINT "FK_635351519843a97fa5f157bda0c" FOREIGN KEY (creator_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: routine_workstation_workstation_category FK_65e9ea7611bf59285f9233d1716; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_workstation_workstation_category
+    ADD CONSTRAINT "FK_65e9ea7611bf59285f9233d1716" FOREIGN KEY ("routineId") REFERENCES public.routine(id) ON DELETE CASCADE;
 
 
 --
@@ -1398,6 +1349,14 @@ ALTER TABLE ONLY public.user_saved_routines_routine
 
 ALTER TABLE ONLY public.role_privilege_privilege
     ADD CONSTRAINT "FK_a0b7732af9502459207c8f1b229" FOREIGN KEY ("roleId") REFERENCES public.role(id) ON DELETE CASCADE;
+
+
+--
+-- Name: routine_workstation_workstation_category FK_bae24226df5419260e20415e5a7; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
+--
+
+ALTER TABLE ONLY public.routine_workstation_workstation_category
+    ADD CONSTRAINT "FK_bae24226df5419260e20415e5a7" FOREIGN KEY ("workstationCategoryId") REFERENCES public.workstation_category(id) ON DELETE CASCADE;
 
 
 --
@@ -1481,17 +1440,8 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: routine_workstation_workstation FK_ff8552a2c966f9fb86fa3c59289; Type: FK CONSTRAINT; Schema: public; Owner: petrlr14
---
-
-ALTER TABLE ONLY public.routine_workstation_workstation
-    ADD CONSTRAINT "FK_ff8552a2c966f9fb86fa3c59289" FOREIGN KEY ("workstationId") REFERENCES public.workstation(id) ON DELETE CASCADE;
-
-
---
 -- PostgreSQL database dump complete
 --
-
 
 -- database pupulation
 INSERT INTO public.role (name) VALUES ('ADMIN'), ('USER');
@@ -1503,32 +1453,36 @@ INSERT INTO public.privilege ("resource", "action", "possession", "display_name"
     ('ROLES', 'delete', 'any', 'Eliminar roles'),
     ('ROLES', 'read', 'own', 'Leer propio rol'),
     ('ADMIN', 'read', 'own', 'Entrar a portal de administración'),
-    ('USERS', 'read', 'any', 'Leer usuarios');
+    ('USERS', 'read', 'any', 'Leer usuarios'), 
+    ('MARK', 'update', 'any', 'Marcar entrada y salida');
 
 INSERT INTO public.role_privilege_privilege ("roleId", "privilegeId")
-    VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 6), (1, 7), (2, 5);
+    VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 6), (1, 7), (1, 8), (2, 5);
 
 INSERT INTO public.gender ("name") VALUES ('MASCULINO'), ('FEMENINO');
 
 INSERT INTO public.membership_state ("name") VALUES ('ACTIVA'), ('INACTIVA'), ('VENCIDA');
 
 INSERT INTO public.membership_type ("name", "price") VALUES ('BASICA', 11.99), ('PREMIUM', 29.99);
-<<<<<<< HEAD
 
 INSERT INTO public.workstation_type ("name") VALUES ('Cardio'), ('Strength');
 
 INSERT INTO public.workstation_state ("name") VALUES ('Available'), ('Unavailable'), ('Inactive');
 
-INSERT INTO public.workstation_category ("name", "img") 
+INSERT INTO public.workstation_category ("name", "img", "workstation_type_id") 
 VALUES 
-    ('Elliptical', 'https://static.onecms.io/wp-content/uploads/sites/35/2020/08/03/elliptical-workout-for-beginners-promo.jpg'),
-    ('Rowing', 'https://s.yimg.com/ny/api/res/1.2/RmRlFH0e3DWTYixF0C6mhg--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/https://media.zenfs.com/en/runner_s_world_304/5dc95126d0aa1b16a90e6829d2be5cd5'),
-    ('Stationary bicycle', 'https://res.cloudinary.com/moves365/image/upload/c_fit,h_860,w_860/stationary-bike-benefits.jpg-435c7288-924d-4396-a1d1-318774cd5a39');
+    ('Elíptica', 'https://www.mundofitness.es/media/catalog/product/cache/1/image/654x654/9df78eab33525d08d6e5fb8d27136e95/p/e/petl74917-gallery.png', 1),
+    ('Remo', 'https://www.johnsonfitness.com/Home/ProductImage?sku=2712US', 1),
+    ('Bicileta estacionaria', 'https://img2.pngio.com/exercise-bike-png-transparent-exercise-bikepng-images-pluspng-stationary-bike-png-300_300.png', 1),
+    ('Caminadora', 'https://pngimg.com/uploads/treadmill/treadmill_PNG12.png', 1),
+    ('Prensa', 'https://i.ibb.co/PMVBRMV/Maquina.png', 2);
+    
 
 INSERT INTO public.workstation ("code", "workstation_type_id", "workstation_state_id", "workstation_category_id")
 VALUES 
-    ('ELL01', 1, 1, 1), ('ELL02', 1, 1, 1), ('ELL03', 1, 1, 1), ('ELL03', 1, 1, 1), ('ELL05', 1, 1, 1),
+    ('ELL01', 1, 1, 1), ('ELL02', 1, 1, 1), ('ELL03', 1, 1, 1), ('ELL04', 1, 1, 1), ('ELL05', 1, 1, 1),
     ('ROWING01', 1, 1, 2), ('ROWING02', 1, 1, 2), ('ROWING03', 1, 1, 2), ('ROWING04', 1, 1, 2), ('ROWING05', 1, 1, 2),
-    ('BIKE01', 1, 1, 3), ('BIKE02', 1, 1, 3), ('BIKE03', 1, 1, 3), ('BIKE04', 1, 1, 3), ('BIKE05', 1, 1, 3);
-=======
->>>>>>> f31337350c135c3ed763d63c8f96cbd8a42f5499
+    ('BIKE01', 1, 1, 3), ('BIKE02', 1, 1, 3), ('BIKE03', 1, 1, 3), ('BIKE04', 1, 1, 3), ('BIKE05', 1, 1, 3),
+    ('CAMINADORA01', 1, 1, 4), ('CAMINADORA02', 1, 1, 4), ('CAMINADORA03', 1, 1, 4), ('CAMINADORA04', 1, 1, 4), ('CAMINADORA05', 1, 1, 4),
+    ('PRENSA01', 2, 1, 5), ('PRESNA02', 2, 1, 5), ('PRESNA03', 2, 1, 5), ('PRESNA04', 2, 1, 5), ('PRESNA05', 2, 1, 5);
+

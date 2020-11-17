@@ -75,7 +75,9 @@ export class WorkstationService {
       workstation: undefined,
     };
 
-    const workstation = await this.workstationRepository.findOne(id);
+    const workstation = await this.workstationRepository.findOne(id, {
+      relations: ['workstationState'],
+    });
     if (!workstation) return response;
 
     response.success = true;
@@ -117,6 +119,28 @@ export class WorkstationService {
   }
 
   async findAllOccureance(id: number[]) {
+    const response: WorkstationCategoryResponse = {
+      message: 'Workstation not found',
+      success: false,
+      workstationCategory: undefined,
+    };
+    try {
+      const workstationCategories = await this.workstationCategoryRepository.findByIds(
+        id,
+      );
+      if (!workstationCategories || workstationCategories.length !== id.length)
+        throw Error();
+      response.message = 'Found';
+      response.success = true;
+      response.workstationCategory = workstationCategories;
+      return response;
+    } catch (e) {
+      console.log(e);
+      return response;
+    }
+  }
+
+  async findAllWorkstationOccureance(id: number[]) {
     const response: WorkstationResponse = {
       message: 'Workstation not found',
       success: false,
@@ -204,6 +228,11 @@ export class WorkstationService {
       use.user = user;
       use.workstation = workstation;
 
+      if (action.id === 1 && workstation.workstationState.id === 2) {
+        response.message = 'La maquina esta siendo utilizada';
+        throw new Error();
+      }
+
       const savedUseWorkstation = await this.workstationUseRepository.save(use);
       if (!savedUseWorkstation) throw new Error(response.message);
 
@@ -220,9 +249,31 @@ export class WorkstationService {
       return response;
     } catch (e) {
       await queryRunner.rollbackTransaction();
-      throw new Error(response.message);
+      return response;
     } finally {
       await queryRunner.release();
+    }
+  }
+
+  async findAvailableByCategory(id: number) {
+    const response: WorkstationResponse = {
+      message: 'Not found',
+      success: false,
+      workstation: undefined,
+    };
+
+    try {
+      const workstation = await this.workstationRepository.find({
+        where: { workstationCategory: id, workstationState: 1 },
+        order: { id: 'ASC' },
+      });
+      if (!workstation) throw Error();
+      response.message = 'Found';
+      response.success = true;
+      response.workstation = workstation;
+      return response;
+    } catch (e) {
+      return response;
     }
   }
 }

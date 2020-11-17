@@ -52,6 +52,9 @@ export class User {
   @Column()
   birthday: Date;
 
+  @Column({ default: false, name: 'is_identified' })
+  isIdentified: boolean;
+
   @ManyToOne(
     () => Gender,
     gender => gender.id,
