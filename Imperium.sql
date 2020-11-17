@@ -167,7 +167,7 @@ ALTER SEQUENCE public.membership_state_id_seq OWNED BY public.membership_state.i
 CREATE TABLE public.membership_type (
     id integer NOT NULL,
     name character varying NOT NULL,
-    price integer NOT NULL,
+    price numeric NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
@@ -353,6 +353,7 @@ CREATE TABLE public."user" (
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
     birthday timestamp without time zone NOT NULL,
+    is_identified boolean DEFAULT false NOT NULL, 
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     gender_id integer,
@@ -1334,10 +1335,11 @@ INSERT INTO public.privilege ("resource", "action", "possession", "display_name"
     ('ROLES', 'delete', 'any', 'Eliminar roles'),
     ('ROLES', 'read', 'own', 'Leer propio rol'),
     ('ADMIN', 'read', 'own', 'Entrar a portal de administración'),
-    ('USERS', 'read', 'any', 'Leer usuarios');
+    ('USERS', 'read', 'any', 'Leer usuarios'), 
+    ('MARK', 'update', 'any', 'Marcar entrada y salida');
 
 INSERT INTO public.role_privilege_privilege ("roleId", "privilegeId")
-    VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 6), (1, 7), (2, 5);
+    VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 6), (1, 7), (1, 8), (2, 5);
 
 INSERT INTO public.gender ("name") VALUES ('MASCULINO'), ('FEMENINO');
 
@@ -1365,3 +1367,5 @@ VALUES
     ('BIKE01', 1, 1, 3), ('BIKE02', 1, 1, 3), ('BIKE03', 1, 1, 3), ('BIKE04', 1, 1, 3), ('BIKE05', 1, 1, 3),
     ('CAMINADORA01', 1, 1, 4), ('CAMINADORA02', 1, 1, 4), ('CAMINADORA03', 1, 1, 4), ('CAMINADORA04', 1, 1, 4), ('CAMINADORA05', 1, 1, 4),
     ('PRENSA01', 2, 1, 5), ('PRESNA02', 2, 1, 5), ('PRESNA03', 2, 1, 5), ('PRESNA04', 2, 1, 5), ('PRESNA05', 2, 1, 5);
+
+INSERT INTO building_entrance_action("name") values ('ENTRADA'), ('SALIDA')

@@ -82,6 +82,7 @@ export class UserService {
           'history.routine.creator',
           'history.routine.workstation',
           'role',
+          'role.privilege',
           'gender',
           'file',
         ],
@@ -247,5 +248,11 @@ export class UserService {
     } catch (e) {
       return response;
     }
+  }
+
+  async updateIdentifiedStatus(user: User) {
+    user.isIdentified = !user.isIdentified;
+    const userUpdated = await this.userRepository.save(user);
+    return userUpdated;
   }
 }

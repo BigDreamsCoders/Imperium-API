@@ -16,7 +16,10 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ACGuard, UseRoles } from 'nest-access-control';
+import { BuildingService } from '../building/building.service';
 import { EmailService } from '../email/email.service';
+import { BuildingEntranceAction } from '../entities/building.entity';
+import { User } from '../entities/user.entity';
 import { FileDTO } from '../file/file.dto';
 import { FileService } from '../file/file.service';
 import { GenderService } from '../gender/gender.service';
@@ -44,6 +47,7 @@ export class UserController {
     private readonly genderService: GenderService,
     private readonly roleService: RoleService,
     private readonly emailService: EmailService,
+    private readonly buildingService: BuildingService,
   ) {}
 
   @UseGuards(JwtGuard)
@@ -53,10 +57,6 @@ export class UserController {
   }
 
   @UseGuards(JwtGuard, AuthGuard, ACGuard)
-  @UseRoles({
-    resource: Privileges.RESOURCES.ROLES,
-    action: Privileges.ACTION.R,
-  })
   @Get('/me')
   async getUser(@Req() req: any) {
     const { id } = req.user;
@@ -201,6 +201,34 @@ export class UserController {
     if (!userRemoved.success)
       return new InternalServerErrorException(userRemoved.message);
     return { message: userRemoved.message };
+  }
+
+  @UseGuards(JwtGuard)
+  @Put('/entrance/:id')
+  async markBuildingEntrance(@Param('id') userId: number) {
+    const userResponse = await this.userService.find(
+      userId,
+      undefined,
+      undefined,
+    );
+    if (!userResponse) throw new BadRequestException('Not found');
+    const buildingActionResponse = await this.buildingService.findBuildingEntranceAction(
+      (<User>userResponse).isIdentified ? 2 : 1,
+    );
+    if (!buildingActionResponse.success)
+      throw new InternalServerErrorException();
+    const buildEntranceResponse = await this.buildingService.createBuildingEntrance(
+      <BuildingEntranceAction>buildingActionResponse.action,
+      <User>userResponse,
+    );
+    if (!buildEntranceResponse.success)
+      throw new InternalServerErrorException();
+
+    const userUpdated = await this.userService.updateIdentifiedStatus(
+      <User>userResponse,
+    );
+    if (!userUpdated) throw new InternalServerErrorException();
+    return;
   }
 
   @UseGuards(JwtGuard, AuthGuard, ACGuard)
