@@ -215,18 +215,21 @@ export class UserController {
     const buildingActionResponse = await this.buildingService.findBuildingEntranceAction(
       (<User>userResponse).isIdentified ? 2 : 1,
     );
+    console.log(buildingActionResponse);
     if (!buildingActionResponse.success)
       throw new InternalServerErrorException();
     const buildEntranceResponse = await this.buildingService.createBuildingEntrance(
       <BuildingEntranceAction>buildingActionResponse.action,
       <User>userResponse,
     );
+    console.log(buildEntranceResponse);
     if (!buildEntranceResponse.success)
       throw new InternalServerErrorException();
 
     const userUpdated = await this.userService.updateIdentifiedStatus(
       <User>userResponse,
     );
+    console.log(userUpdated);
     if (!userUpdated) throw new InternalServerErrorException();
     return;
   }
